@@ -481,8 +481,8 @@ dependencies = [
  "bevy_reflect",
  "bevy_sprite",
  "byteorder",
- "ico",
  "image",
+ "png",
  "riff",
  "ron",
  "serde",
@@ -1985,16 +1985,6 @@ name = "hexf-parse"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dfa686283ad6dd069f105e5ab091b04c62850d3e4cf5d67debad1933f55023df"
-
-[[package]]
-name = "ico"
-version = "0.3.0"
-source = "git+https://github.com/mgi388/rust-ico.git?branch=icondir-serde#651e4461bdfd5d41fe61d1c66d0fcea70dec3691"
-dependencies = [
- "byteorder",
- "png",
- "serde",
-]
 
 [[package]]
 name = "image"

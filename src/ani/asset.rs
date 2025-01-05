@@ -5,13 +5,15 @@ use bevy_asset::{io::Reader, prelude::*, AssetLoader, LoadContext, RenderAssetUs
 use bevy_image::Image;
 use bevy_reflect::prelude::*;
 use bevy_sprite::{TextureAtlasBuilder, TextureAtlasBuilderError, TextureAtlasLayout};
-use ico::ResourceType;
 use image::{DynamicImage, ImageBuffer};
 use thiserror::Error;
 
-use crate::ani::{
-    decoder::{DecodeError, Decoder},
-    AnimatedCursorMetadata,
+use crate::{
+    ani::{
+        decoder::{DecodeError, Decoder},
+        AnimatedCursorMetadata,
+    },
+    ico::ResourceType,
 };
 
 pub struct AnimatedCursorAssetPlugin;

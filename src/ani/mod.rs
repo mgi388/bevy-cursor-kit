@@ -2,9 +2,10 @@ pub mod asset;
 pub mod decoder;
 
 use bevy_reflect::prelude::*;
-use ico::IconDir;
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+
+use crate::ico::IconDir;
 
 pub use decoder::{DecodeError, Decoder};
 
@@ -56,7 +57,7 @@ mod tests {
         path::{Path, PathBuf},
     };
 
-    use ico::ResourceType;
+    use crate::ico::ResourceType;
 
     use super::*;
 
