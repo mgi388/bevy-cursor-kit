@@ -16,7 +16,7 @@ fn main() {
 #[derive(Debug, Resource, Reflect)]
 #[reflect(Debug, Resource)]
 struct Cursors {
-    static_cursor: Handle<StaticCursorAsset>,
+    static_cursor: Handle<StaticCursor>,
 }
 
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
@@ -29,7 +29,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 
 fn insert_cursor(
     mut commands: Commands,
-    static_cursors: Res<Assets<StaticCursorAsset>>,
+    static_cursors: Res<Assets<StaticCursor>>,
     cursors: Res<Cursors>,
     window: Single<Entity, With<Window>>,
     mut setup: Local<bool>,

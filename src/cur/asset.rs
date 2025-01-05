@@ -12,9 +12,9 @@ pub struct StaticCursorAssetPlugin;
 
 impl Plugin for StaticCursorAssetPlugin {
     fn build(&self, app: &mut App) {
-        app.init_asset::<StaticCursorAsset>()
-            .init_asset_loader::<StaticCursorAssetLoader>()
-            .register_asset_reflect::<StaticCursorAsset>();
+        app.init_asset::<StaticCursor>()
+            .init_asset_loader::<StaticCursorLoader>()
+            .register_asset_reflect::<StaticCursor>();
     }
 }
 
@@ -27,13 +27,13 @@ pub struct StaticCursorImage {
 
 #[derive(Asset, Clone, Debug, Reflect)]
 #[reflect(Debug)]
-pub struct StaticCursorAsset {
+pub struct StaticCursor {
     pub image: Handle<Image>,
     pub texture_atlas_layout: Handle<TextureAtlasLayout>,
     pub hotspots: Vec<(u16, u16)>,
 }
 
-impl StaticCursorAsset {
+impl StaticCursor {
     /// Returns the hotspot for the cursor at the given index, or `(0, 0)` if
     /// the index is out of bounds.
     ///
@@ -46,12 +46,12 @@ impl StaticCursorAsset {
 }
 
 #[derive(Clone, Default)]
-pub struct StaticCursorAssetLoader;
+pub struct StaticCursorLoader;
 
-/// Possible errors that can be produced by [`StaticCursorAssetLoader`].
+/// Possible errors that can be produced by [`StaticCursorLoader`].
 #[non_exhaustive]
 #[derive(Debug, Error)]
-pub enum StaticCursorAssetLoaderError {
+pub enum StaticCursorLoaderError {
     /// An [IO](std::io) error.
     #[error("could not load asset: {0}")]
     Io(#[from] std::io::Error),
@@ -65,10 +65,10 @@ pub enum StaticCursorAssetLoaderError {
     TextureAtlasBuilderError(#[from] TextureAtlasBuilderError),
 }
 
-impl AssetLoader for StaticCursorAssetLoader {
-    type Asset = StaticCursorAsset;
+impl AssetLoader for StaticCursorLoader {
+    type Asset = StaticCursor;
     type Settings = ();
-    type Error = StaticCursorAssetLoaderError;
+    type Error = StaticCursorLoaderError;
     async fn load(
         &self,
         reader: &mut dyn Reader,
@@ -88,7 +88,7 @@ impl AssetLoader for StaticCursorAssetLoader {
             .enumerate()
             .map(|(i, e)| {
                 if e.resource_type() != ResourceType::Cursor {
-                    return Err(StaticCursorAssetLoaderError::InvalidResourceType(format!(
+                    return Err(StaticCursorLoaderError::InvalidResourceType(format!(
                         "{:?}",
                         e.resource_type()
                     )));
@@ -102,13 +102,13 @@ impl AssetLoader for StaticCursorAssetLoader {
                     icon_image.rgba_data().to_vec(),
                 )
                 .map(DynamicImage::ImageRgba8)
-                .ok_or(StaticCursorAssetLoaderError::ImageBufferError)?;
+                .ok_or(StaticCursorLoaderError::ImageBufferError)?;
 
                 let image = Image::from_dynamic(image, true, RenderAssetUsages::MAIN_WORLD);
 
                 let hotspot = icon_image
                     .cursor_hotspot()
-                    .ok_or(StaticCursorAssetLoaderError::MissingHotspot)?;
+                    .ok_or(StaticCursorLoaderError::MissingHotspot)?;
 
                 Ok((
                     (
@@ -121,7 +121,7 @@ impl AssetLoader for StaticCursorAssetLoader {
                     hotspot,
                 ))
             })
-            .collect::<Result<Vec<_>, StaticCursorAssetLoaderError>>()?;
+            .collect::<Result<Vec<_>, StaticCursorLoaderError>>()?;
 
         let mut texture_atlas_builder = TextureAtlasBuilder::default();
 
@@ -139,7 +139,7 @@ impl AssetLoader for StaticCursorAssetLoader {
             .labeled_asset_scope("texture_atlas_layout".to_string(), |_| texture_atlas_layout);
         let image = load_context.labeled_asset_scope("image".to_string(), |_| image);
 
-        Ok(StaticCursorAsset {
+        Ok(StaticCursor {
             image,
             texture_atlas_layout,
             hotspots,

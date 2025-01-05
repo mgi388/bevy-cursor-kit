@@ -16,7 +16,7 @@ fn main() {
 #[derive(Debug, Resource, Reflect)]
 #[reflect(Debug, Resource)]
 struct Cursors {
-    animated_cursor: Handle<AnimatedCursorAsset>,
+    animated_cursor: Handle<AnimatedCursor>,
 }
 
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
@@ -29,7 +29,7 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 
 fn insert_cursor(
     mut commands: Commands,
-    animated_cursors: Res<Assets<AnimatedCursorAsset>>,
+    animated_cursors: Res<Assets<AnimatedCursor>>,
     cursors: Res<Cursors>,
     window: Single<Entity, With<Window>>,
     mut setup: Local<bool>,
