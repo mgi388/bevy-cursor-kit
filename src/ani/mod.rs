@@ -30,7 +30,7 @@ pub struct AnimatedCursorMetadata {
     // The number of planes.
     pub plane_count: u32,
     // The number of frames per 60 seconds.
-    pub frames_per_60_seconds: u32,
+    pub frames_per_60_secs: u32,
     // The animation flags.
     //
     // TODO: Use bitflags.
@@ -114,7 +114,7 @@ mod tests {
                 height: 0,
                 bit_count: 0,
                 plane_count: 0,
-                frames_per_60_seconds: 10,
+                frames_per_60_secs: 10,
                 flags: 1,
             }
         );

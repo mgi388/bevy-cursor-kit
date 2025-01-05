@@ -106,7 +106,7 @@ impl<R: Read + Seek> Decoder<R> {
                     height: cursor.read_u32::<LittleEndian>()?,
                     bit_count: cursor.read_u32::<LittleEndian>()?,
                     plane_count: cursor.read_u32::<LittleEndian>()?,
-                    frames_per_60_seconds: cursor.read_u32::<LittleEndian>()?,
+                    frames_per_60_secs: cursor.read_u32::<LittleEndian>()?,
                     flags: cursor.read_u32::<LittleEndian>()?,
                 })
             })
