@@ -20,9 +20,9 @@ pub struct AnimatedCursorAssetPlugin;
 
 impl Plugin for AnimatedCursorAssetPlugin {
     fn build(&self, app: &mut App) {
-        app.init_asset::<AnimatedCursorAsset>()
-            .init_asset_loader::<AnimatedCursorAssetLoader>()
-            .register_asset_reflect::<AnimatedCursorAsset>();
+        app.init_asset::<AnimatedCursor>()
+            .init_asset_loader::<AnimatedCursorLoader>()
+            .register_asset_reflect::<AnimatedCursor>();
     }
 }
 
@@ -35,26 +35,26 @@ pub struct AnimatedCursorFrame {
 
 #[derive(Asset, Clone, Debug, Reflect)]
 #[reflect(Debug)]
-pub struct AnimatedCursorAsset {
+pub struct AnimatedCursor {
     pub metadata: AnimatedCursorMetadata,
     pub image: Handle<Image>,
     pub texture_atlas_layout: Handle<TextureAtlasLayout>,
     pub hotspots: Vec<(u16, u16)>,
 }
 
-impl AnimatedCursorAsset {
+impl AnimatedCursor {
     pub fn duration_per_frame(&self) -> Duration {
         Duration::from_secs_f32(self.metadata.frames_per_60_seconds as f32 / 60.0)
     }
 }
 
 #[derive(Clone, Default)]
-pub struct AnimatedCursorAssetLoader;
+pub struct AnimatedCursorLoader;
 
-/// Possible errors that can be produced by [`AnimatedCursorAssetLoader`].
+/// Possible errors that can be produced by [`AnimatedCursorLoader`].
 #[non_exhaustive]
 #[derive(Debug, Error)]
-pub enum AnimatedCursorAssetLoaderError {
+pub enum AnimatedCursorLoaderError {
     /// An [IO](std::io) error.
     #[error("could not load asset: {0}")]
     Io(#[from] std::io::Error),
@@ -73,10 +73,10 @@ pub enum AnimatedCursorAssetLoaderError {
     TextureAtlasBuilderError(#[from] TextureAtlasBuilderError),
 }
 
-impl AssetLoader for AnimatedCursorAssetLoader {
-    type Asset = AnimatedCursorAsset;
+impl AssetLoader for AnimatedCursorLoader {
+    type Asset = AnimatedCursor;
     type Settings = ();
-    type Error = AnimatedCursorAssetLoaderError;
+    type Error = AnimatedCursorLoaderError;
     async fn load(
         &self,
         reader: &mut dyn Reader,
@@ -122,7 +122,7 @@ impl AssetLoader for AnimatedCursorAssetLoader {
             .enumerate()
             .map(|(i, f)| {
                 if f.entries().len() != 1 {
-                    return Err(AnimatedCursorAssetLoaderError::UnsupportedFrameEntryCount(
+                    return Err(AnimatedCursorLoaderError::UnsupportedFrameEntryCount(
                         f.entries().len(),
                     ));
                 }
@@ -130,7 +130,7 @@ impl AssetLoader for AnimatedCursorAssetLoader {
                 let first = f.entries().first().unwrap();
 
                 if first.resource_type() != ResourceType::Cursor {
-                    return Err(AnimatedCursorAssetLoaderError::InvalidResourceType);
+                    return Err(AnimatedCursorLoaderError::InvalidResourceType);
                 }
 
                 let icon_image = first.decode()?;
@@ -141,13 +141,13 @@ impl AssetLoader for AnimatedCursorAssetLoader {
                     icon_image.rgba_data().to_vec(),
                 )
                 .map(DynamicImage::ImageRgba8)
-                .ok_or(AnimatedCursorAssetLoaderError::ImageBufferError)?;
+                .ok_or(AnimatedCursorLoaderError::ImageBufferError)?;
 
                 let image = Image::from_dynamic(image, true, RenderAssetUsages::MAIN_WORLD);
 
                 let hotspot = icon_image
                     .cursor_hotspot()
-                    .ok_or(AnimatedCursorAssetLoaderError::MissingHotspot)?;
+                    .ok_or(AnimatedCursorLoaderError::MissingHotspot)?;
 
                 Ok((
                     (
@@ -160,7 +160,7 @@ impl AssetLoader for AnimatedCursorAssetLoader {
                     hotspot,
                 ))
             })
-            .collect::<Result<Vec<_>, AnimatedCursorAssetLoaderError>>()?;
+            .collect::<Result<Vec<_>, AnimatedCursorLoaderError>>()?;
 
         let mut texture_atlas_builder = TextureAtlasBuilder::default();
 
@@ -178,7 +178,7 @@ impl AssetLoader for AnimatedCursorAssetLoader {
             .labeled_asset_scope("texture_atlas_layout".to_string(), |_| texture_atlas_layout);
         let image = load_context.labeled_asset_scope("image".to_string(), |_| image);
 
-        Ok(AnimatedCursorAsset {
+        Ok(AnimatedCursor {
             metadata: c.metadata,
             image,
             texture_atlas_layout,
