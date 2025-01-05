@@ -38,9 +38,12 @@ commands
   .entity(window)
   .insert(CursorIcon::Custom(CustomCursor::Image {
       handle: cursor.image.clone(),
-      hotspot: cursor.hotspot_or_default(0), // most .CUR are expected to only have one frame so pass index 0
+      // Most .CUR are expected to only have one frame so just use index 0.
+      hotspot: cursor.hotspot_or_default(0),
   }));
 ```
+
+Check out the [examples](examples) for more details.
 
 ## License
 

@@ -2,7 +2,7 @@
 name = "bevy_cursor_kit"
 version = "0.1.0"
 edition = "2021"
-description = "A Bevy plugin for loading cursor assets."
+description = "A Bevy plugin for working with cursors."
 repository = "https://github.com/mgi388/bevy-cursor-kit"
 license = "MIT OR Apache-2.0"
 
