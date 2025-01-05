@@ -1,0 +1,36 @@
+[package]
+name = "bevy_cursor_kit"
+version = "0.1.0"
+edition = "2021"
+description = "A Bevy plugin for loading cursor assets."
+repository = "https://github.com/mgi388/bevy-cursor-kit"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+bevy_app = "0.15"
+bevy_asset = "0.15"
+bevy_image = "0.15"
+bevy_reflect = "0.15"
+bevy_sprite = "0.15"
+byteorder = "1.5"
+ico = { git = "https://github.com/mgi388/rust-ico.git", branch = "icondir-serde", default-features = false, features = [
+    "serde",
+] }
+image = "0.25"
+riff = "2"
+serde = { version = "1", optional = true, default-features = false }
+thiserror = "2"
+
+[dev-dependencies]
+bevy = { version = "0.15", default-features = false, features = [
+    "bevy_sprite",
+    "bevy_window",
+    "bevy_winit",
+    "custom_cursor",
+    "multi_threaded",
+    "x11",
+] }
+ron = "0.8"
+
+[package.metadata.docs.rs]
+all-features = true

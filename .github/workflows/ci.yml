@@ -1,0 +1,92 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    name: Test suite
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Linux deps
+        run: |
+          sudo apt update
+          sudo apt install -y --no-install-recommends libasound2-dev
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Set up Dark Omen game files cache
+        uses: actions/cache@v4
+        id: cache
+        with:
+          path: DARKOMEN
+          key: ${{ runner.os }}-darkomen-game-files-v0.1.0
+      - name: Download Dark Omen game files for testing
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          curl -L -o DARKOMEN.zip -H 'Authorization: token ${{ secrets.DARKOMEN_GAME_FILES_PAT }}' -H 'Accept: application/octet-stream' -L https://api.github.com/repos/mgi388/darkomen-game-files/releases/assets/175295196
+          rm -rf ./DARKOMEN
+          unzip -qq DARKOMEN.zip -d ./
+      - name: Run tests
+        run: |
+          export DARKOMEN_PATH=$(pwd)/DARKOMEN
+          cargo test --all-features --workspace
+
+  rustfmt:
+    name: Rustfmt
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Linux deps
+        run: |
+          sudo apt update
+          sudo apt install -y --no-install-recommends libasound2-dev
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+      - uses: Swatinem/rust-cache@v2
+      - name: Check formatting
+        run: cargo fmt --all --check
+
+  clippy:
+    name: Clippy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Linux deps
+        run: |
+          sudo apt update
+          sudo apt install -y --no-install-recommends libasound2-dev
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+      - uses: Swatinem/rust-cache@v2
+      - name: Clippy check
+        run: cargo clippy --all-targets --all-features --workspace -- -D warnings
+
+  docs:
+    name: Docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Linux deps
+        run: |
+          sudo apt update
+          sudo apt install -y --no-install-recommends libasound2-dev
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Check documentation
+        env:
+          RUSTDOCFLAGS: -D warnings
+        run: cargo doc --no-deps --document-private-items --all-features --workspace --examples

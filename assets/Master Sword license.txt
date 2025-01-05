@@ -1,0 +1,4 @@
+- Static (non-animated) cursor: http://www.rw-designer.com/cursor-detail/1140
+- Animated cursor with 28 frame(s): http://www.rw-designer.com/cursor-detail/1141
+- Published on April 14th 2007 by Raythar.
+- Released under the Attribution Required (CC by).
