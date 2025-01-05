@@ -13,10 +13,8 @@ bevy_image = "0.15"
 bevy_reflect = "0.15"
 bevy_sprite = "0.15"
 byteorder = "1.5"
-ico = { git = "https://github.com/mgi388/rust-ico.git", branch = "icondir-serde", default-features = false, features = [
-    "serde",
-] }
 image = "0.25"
+png = "0.17"
 riff = "2"
 serde = { version = "1", optional = true, default-features = false }
 thiserror = "2"
