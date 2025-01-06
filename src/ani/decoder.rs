@@ -15,9 +15,11 @@ pub enum DecodeError {
     IoError(IoError),
     UnsupportedRootChunkId(ChunkId),
     UnsupportedRootType(ChunkId),
+    InvalidHeaderFlags,
     MissingHeaderChunk,
     MissingFramesChunk,
     UnsupportedFrameChunkId(ChunkId),
+    UnsupportedRawDataFrameType,
 }
 
 impl std::error::Error for DecodeError {}
@@ -38,10 +40,14 @@ impl fmt::Display for DecodeError {
             DecodeError::UnsupportedRootType(id) => {
                 write!(f, "unsupported root type: {:?} (expected 'ACON')", id)
             }
+            DecodeError::InvalidHeaderFlags => write!(f, "invalid header flags"),
             DecodeError::MissingHeaderChunk => write!(f, "missing header chunk ('anih')"),
             DecodeError::MissingFramesChunk => write!(f, "missing frames chunk ('fram')"),
             DecodeError::UnsupportedFrameChunkId(id) => {
                 write!(f, "unsupported frame chunk ID: {:?} (expected 'icon')", id)
+            }
+            DecodeError::UnsupportedRawDataFrameType => {
+                write!(f, "unsupported raw data frame type")
             }
         }
     }
@@ -107,7 +113,8 @@ impl<R: Read + Seek> Decoder<R> {
                     bit_count: cursor.read_u32::<LittleEndian>()?,
                     plane_count: cursor.read_u32::<LittleEndian>()?,
                     frames_per_60_secs: cursor.read_u32::<LittleEndian>()?,
-                    flags: cursor.read_u32::<LittleEndian>()?,
+                    flags: AnimatedCursorFlags::from_bits(cursor.read_u32::<LittleEndian>()?)
+                        .ok_or(DecodeError::InvalidHeaderFlags)?,
                 })
             })
             .ok_or(DecodeError::MissingHeaderChunk)?;
@@ -130,6 +137,14 @@ impl<R: Read + Seek> Decoder<R> {
                         };
 
                         let contents = c.read_contents(&mut self.reader)?;
+
+                        // TODO: Support raw data frames.
+                        if !metadata
+                            .flags
+                            .contains(AnimatedCursorFlags::ICON_OR_CURSOR_DATA)
+                        {
+                            return Err(DecodeError::UnsupportedRawDataFrameType);
+                        }
 
                         let icon = IconDir::read(&mut std::io::Cursor::new(contents))?;
 
