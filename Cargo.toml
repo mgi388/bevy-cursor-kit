@@ -6,12 +6,17 @@ description = "A Bevy plugin for working with cursors."
 repository = "https://github.com/mgi388/bevy-cursor-kit"
 license = "MIT OR Apache-2.0"
 
+[features]
+default = []
+serde = ["dep:serde", "bitflags/serde"]
+
 [dependencies]
 bevy_app = "0.15"
 bevy_asset = "0.15"
 bevy_image = "0.15"
 bevy_reflect = "0.15"
 bevy_sprite = "0.15"
+bitflags = { version = "2.6", default-features = false }
 byteorder = "1.5"
 image = "0.25"
 png = "0.17"

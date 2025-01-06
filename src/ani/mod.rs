@@ -2,6 +2,7 @@ pub mod asset;
 pub mod decoder;
 
 use bevy_reflect::prelude::*;
+use bitflags::bitflags;
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
@@ -32,9 +33,25 @@ pub struct AnimatedCursorMetadata {
     // The number of frames per 60 seconds.
     pub frames_per_60_secs: u32,
     // The animation flags.
-    //
-    // TODO: Use bitflags.
-    pub flags: u32,
+    pub flags: AnimatedCursorFlags,
+}
+
+bitflags! {
+    #[repr(transparent)]
+    #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Reflect)]
+    #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
+    #[reflect(opaque)]
+    #[reflect(Debug, Hash, PartialEq)]
+    #[cfg_attr(feature = "serde", reflect(Deserialize, Serialize))]
+    pub struct AnimatedCursorFlags: u32 {
+        const NONE = 0;
+        /// If set, frames are icon or cursor data.
+        ///
+        /// If not set, frames are raw data.
+        const ICON_OR_CURSOR_DATA = 1 << 0;
+        /// If set, the 'seq '-chunk is present.
+        const HAS_SEQUENCE_CHUNK = 1 << 1;
+    }
 }
 
 #[derive(Clone, Debug, Reflect)]
@@ -115,7 +132,7 @@ mod tests {
                 bit_count: 0,
                 plane_count: 0,
                 frames_per_60_secs: 10,
-                flags: 1,
+                flags: AnimatedCursorFlags::ICON_OR_CURSOR_DATA,
             }
         );
 

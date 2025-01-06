@@ -480,6 +480,7 @@ dependencies = [
  "bevy_image",
  "bevy_reflect",
  "bevy_sprite",
+ "bitflags 2.6.0",
  "byteorder",
  "image",
  "png",
