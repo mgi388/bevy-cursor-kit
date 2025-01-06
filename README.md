@@ -27,7 +27,7 @@ Load a static cursor or an animated cursor:
 let handle = asset_server.load("example.CUR");
 ```
 
-When the asset is ready, use its image when creating a custom `CursorIcon` component on your `Window`s:
+When the asset is ready, use its `image` when creating a custom `CursorIcon` component on your `Window`s:
 
 ```rust
 let Some(cursor) = static_cursors.get(&handle) else {

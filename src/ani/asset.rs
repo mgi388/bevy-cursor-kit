@@ -43,6 +43,12 @@ pub struct AnimatedCursor {
 }
 
 impl AnimatedCursor {
+    /// Returns the hotspot for the cursor at the given index, or `(0, 0)` if
+    /// the index is out of bounds.
+    pub fn hotspot_or_default(&self, index: usize) -> (u16, u16) {
+        self.hotspots.get(index).copied().unwrap_or((0, 0))
+    }
+
     pub fn duration_per_frame(&self) -> Duration {
         Duration::from_secs_f32(self.metadata.frames_per_60_secs as f32 / 60.0)
     }
