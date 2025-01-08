@@ -8,31 +8,37 @@ use serde::{Deserialize, Serialize};
 
 use crate::ico::IconDir;
 
-pub use decoder::{DecodeError, Decoder};
-
 #[derive(Clone, Debug, Eq, PartialEq, Reflect)]
 #[reflect(Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 #[cfg_attr(feature = "serde", reflect(Deserialize, Serialize))]
 pub struct AnimatedCursorMetadata {
-    // The header size in bytes.
+    /// The header size in bytes.
     header_size_bytes: u32,
-    // The number of frames in the animation.
+    /// The number of frames in the animation.
     pub frame_count: u32,
-    // The number of steps in the animation. May include duplicate frames.
-    // Equals `frame_count`, if no 'seq '-chunk is present.
+    /// The number of steps in the animation. May include duplicate frames.
+    /// Equals `frame_count`, if no 'seq '-chunk is present.
     pub step_count: u32,
-    // The frame width in pixels.
+    /// The frame width in pixels.
     pub width: u32,
-    // The frame height in pixels.
+    /// The frame height in pixels.
     pub height: u32,
-    // The number of bits/pixel. `color_depth = 2 * bit_count`.
+    /// The number of bits/pixel. `color_depth = 2 * bit_count`.
     pub bit_count: u32,
-    // The number of planes.
+    /// The number of planes.
     pub plane_count: u32,
-    // The number of frames per 60 seconds.
-    pub frames_per_60_secs: u32,
-    // The animation flags.
+    /// The number of ticks per frame where a "tick" equals 1/60th of a second.
+    ///
+    /// To calculate the duration of each frame in milliseconds:
+    ///
+    /// ```rust
+    /// let ticks_per_frame = 10;
+    /// let duration = 1000.0 * ticks_per_frame as f32 / 60.0;
+    /// assert_eq!(duration, 166.66666666666666); // per frame
+    /// ```
+    pub ticks_per_frame: u32,
+    /// The animation flags.
     pub flags: AnimatedCursorFlags,
 }
 
@@ -74,7 +80,7 @@ mod tests {
         path::{Path, PathBuf},
     };
 
-    use crate::ico::ResourceType;
+    use crate::{ani::decoder::Decoder, ico::ResourceType};
 
     use super::*;
 
@@ -131,7 +137,7 @@ mod tests {
                 height: 0,
                 bit_count: 0,
                 plane_count: 0,
-                frames_per_60_secs: 10,
+                ticks_per_frame: 10,
                 flags: AnimatedCursorFlags::ICON_OR_CURSOR_DATA,
             }
         );

@@ -112,7 +112,7 @@ impl<R: Read + Seek> Decoder<R> {
                     height: cursor.read_u32::<LittleEndian>()?,
                     bit_count: cursor.read_u32::<LittleEndian>()?,
                     plane_count: cursor.read_u32::<LittleEndian>()?,
-                    frames_per_60_secs: cursor.read_u32::<LittleEndian>()?,
+                    ticks_per_frame: cursor.read_u32::<LittleEndian>()?,
                     flags: AnimatedCursorFlags::from_bits(cursor.read_u32::<LittleEndian>()?)
                         .ok_or(DecodeError::InvalidHeaderFlags)?,
                 })
