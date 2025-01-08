@@ -8,7 +8,7 @@ license = "MIT OR Apache-2.0"
 
 [features]
 default = []
-serde = ["dep:serde", "bitflags/serde"]
+serde = ["dep:serde", "bitflags/serde", "ico/serde"]
 
 [dependencies]
 bevy_app = "0.15"
@@ -18,8 +18,8 @@ bevy_reflect = "0.15"
 bevy_sprite = "0.15"
 bitflags = { version = "2.6", default-features = false }
 byteorder = "1.5"
+ico = "0.4"
 image = "0.25"
-png = "0.17"
 riff = "2"
 serde = { version = "1", optional = true, default-features = false }
 thiserror = "2"

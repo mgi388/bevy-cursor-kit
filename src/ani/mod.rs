@@ -3,10 +3,9 @@ pub mod decoder;
 
 use bevy_reflect::prelude::*;
 use bitflags::bitflags;
+use ico::IconDir;
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
-
-use crate::ico::IconDir;
 
 #[derive(Clone, Debug, Eq, PartialEq, Reflect)]
 #[reflect(Debug, PartialEq)]
@@ -80,7 +79,9 @@ mod tests {
         path::{Path, PathBuf},
     };
 
-    use crate::{ani::decoder::Decoder, ico::ResourceType};
+    use ico::ResourceType;
+
+    use crate::ani::decoder::Decoder;
 
     use super::*;
 
