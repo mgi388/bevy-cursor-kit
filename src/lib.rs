@@ -3,8 +3,7 @@ use bevy_app::prelude::*;
 use crate::{ani::asset::AnimatedCursorAssetPlugin, cur::asset::StaticCursorAssetPlugin};
 
 pub mod ani;
-mod cur;
-pub mod ico;
+pub mod cur;
 
 pub mod prelude {
     #[doc(hidden)]

@@ -4,9 +4,8 @@ use std::{
 };
 
 use byteorder::{LittleEndian, ReadBytesExt};
+use ico::IconDir;
 use riff::{Chunk, ChunkId, LIST_ID};
-
-use crate::ico::IconDir;
 
 use super::*;
 

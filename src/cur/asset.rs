@@ -3,10 +3,9 @@ use bevy_asset::{io::Reader, prelude::*, AssetLoader, LoadContext, RenderAssetUs
 use bevy_image::Image;
 use bevy_reflect::prelude::*;
 use bevy_sprite::{TextureAtlasBuilder, TextureAtlasBuilderError, TextureAtlasLayout};
+use ico::{IconDir, ResourceType};
 use image::{DynamicImage, ImageBuffer};
 use thiserror::Error;
-
-use crate::ico::{IconDir, ResourceType};
 
 pub struct StaticCursorAssetPlugin;
 
