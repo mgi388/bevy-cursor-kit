@@ -26,13 +26,6 @@ impl Plugin for AnimatedCursorAssetPlugin {
     }
 }
 
-#[derive(Clone, Debug, Reflect)]
-#[reflect(Debug)]
-pub struct AnimatedCursorFrame {
-    pub image: Handle<Image>,
-    pub hotspot: (u16, u16),
-}
-
 #[derive(Asset, Clone, Debug, Reflect)]
 #[reflect(Debug)]
 pub struct AnimatedCursor {
