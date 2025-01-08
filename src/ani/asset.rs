@@ -43,7 +43,7 @@ impl AnimatedCursor {
     }
 
     pub fn duration_per_frame(&self) -> Duration {
-        Duration::from_secs_f32(self.metadata.frames_per_60_secs as f32 / 60.0)
+        Duration::from_secs_f32(self.metadata.ticks_per_frame as f32 / 60.0)
     }
 }
 
