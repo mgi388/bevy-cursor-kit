@@ -57,7 +57,7 @@ fn insert_cursor(
             // flip_x: false,
             // flip_y: false,
             // rect: None,
-            hotspot: c.hotspots[texture_atlas_index],
+            hotspot: c.hotspot_or_default(texture_atlas_index),
         }));
 
     *setup = true;

@@ -4,6 +4,7 @@ use crate::{ani::asset::AnimatedCursorAssetPlugin, cur::asset::StaticCursorAsset
 
 pub mod ani;
 pub mod cur;
+pub mod hotspot;
 
 pub mod prelude {
     #[doc(hidden)]

@@ -9,9 +9,12 @@ use ico::ResourceType;
 use image::{DynamicImage, ImageBuffer};
 use thiserror::Error;
 
-use crate::ani::{
-    decoder::{DecodeError, Decoder},
-    AnimatedCursorMetadata,
+use crate::{
+    ani::{
+        decoder::{DecodeError, Decoder},
+        AnimatedCursorMetadata,
+    },
+    hotspot::CursorHotspots,
 };
 
 pub struct AnimatedCursorAssetPlugin;
@@ -30,14 +33,16 @@ pub struct AnimatedCursor {
     pub metadata: AnimatedCursorMetadata,
     pub image: Handle<Image>,
     pub texture_atlas_layout: Handle<TextureAtlasLayout>,
-    pub hotspots: Vec<(u16, u16)>,
+    /// The hotspot data.
+    pub hotspots: CursorHotspots,
 }
 
 impl AnimatedCursor {
     /// Returns the hotspot for the cursor at the given index, or `(0, 0)` if
     /// the index is out of bounds.
+    #[inline(always)]
     pub fn hotspot_or_default(&self, index: usize) -> (u16, u16) {
-        self.hotspots.get(index).copied().unwrap_or((0, 0))
+        self.hotspots.get_or_default(index)
     }
 
     pub fn duration_per_frame(&self) -> Duration {
@@ -45,7 +50,8 @@ impl AnimatedCursor {
     }
 }
 
-#[derive(Clone, Default)]
+#[derive(Clone, Debug, Default, Reflect)]
+#[reflect(Debug, Default)]
 pub struct AnimatedCursorLoader;
 
 /// Possible errors that can be produced by [`AnimatedCursorLoader`].
@@ -174,6 +180,20 @@ impl AssetLoader for AnimatedCursorLoader {
         let texture_atlas_layout = load_context
             .labeled_asset_scope("texture_atlas_layout".to_string(), |_| texture_atlas_layout);
         let image = load_context.labeled_asset_scope("image".to_string(), |_| image);
+
+        // Convert the hotspots to a `CursorHotspots` struct. The `overrides`
+        // are constructed to include an entry for every frame. This means that
+        // the `default` hotspot is never actually used. We could optimize by
+        // checking for the most common hotspot and using that as the default,
+        // but that's probably not worth the effort.
+        let hotspots = CursorHotspots {
+            overrides: hotspots
+                .iter()
+                .enumerate()
+                .map(|(i, hotspot)| (i, *hotspot))
+                .collect(),
+            ..Default::default()
+        };
 
         Ok(AnimatedCursor {
             metadata: c.metadata,
