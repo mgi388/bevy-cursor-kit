@@ -169,7 +169,7 @@ mod tests {
         .iter()
         .collect();
 
-        let root_output_dir: PathBuf = [env!("CARGO_MANIFEST_DIR"), "decoded", "cursors"]
+        let root_output_dir: PathBuf = [env!("CARGO_MANIFEST_DIR"), "decoded", "animated-cursors"]
             .iter()
             .collect();
 

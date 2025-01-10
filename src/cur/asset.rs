@@ -3,9 +3,11 @@ use bevy_asset::{io::Reader, prelude::*, AssetLoader, LoadContext, RenderAssetUs
 use bevy_image::Image;
 use bevy_reflect::prelude::*;
 use bevy_sprite::{TextureAtlasBuilder, TextureAtlasBuilderError, TextureAtlasLayout};
-use ico::{IconDir, ResourceType};
+use ico::ResourceType;
 use image::{DynamicImage, ImageBuffer};
 use thiserror::Error;
+
+use crate::cur::decoder::{DecodeError, Decoder};
 
 pub struct StaticCursorAssetPlugin;
 
@@ -47,6 +49,9 @@ pub enum StaticCursorLoaderError {
     /// An [IO](std::io) error.
     #[error("could not load asset: {0}")]
     Io(#[from] std::io::Error),
+    /// A [DecodeError] error.
+    #[error("could not decode static cursor: {0}")]
+    DecodeError(#[from] DecodeError),
     #[error("resource type must be cursor, found: {0}")]
     InvalidResourceType(String),
     #[error("missing hotspot")]
@@ -70,50 +75,53 @@ impl AssetLoader for StaticCursorLoader {
         let mut bytes = Vec::new();
         reader.read_to_end(&mut bytes).await?;
 
-        let mut reader = std::io::Cursor::new(bytes);
+        let reader = std::io::Cursor::new(bytes);
 
-        let icon = IconDir::read(&mut reader)?;
+        let mut decoder = Decoder::new(reader);
 
-        let items = icon
-            .entries()
-            .iter()
-            .enumerate()
-            .map(|(i, e)| {
-                if e.resource_type() != ResourceType::Cursor {
-                    return Err(StaticCursorLoaderError::InvalidResourceType(format!(
-                        "{:?}",
-                        e.resource_type()
-                    )));
-                }
+        let c = decoder.decode()?;
 
-                let icon_image = e.decode()?;
+        let items =
+            c.0.entries()
+                .iter()
+                .enumerate()
+                .map(|(i, e)| {
+                    if e.resource_type() != ResourceType::Cursor {
+                        return Err(StaticCursorLoaderError::InvalidResourceType(format!(
+                            "{:?}",
+                            e.resource_type()
+                        )));
+                    }
 
-                let image = ImageBuffer::from_raw(
-                    icon_image.width(),
-                    icon_image.height(),
-                    icon_image.rgba_data().to_vec(),
-                )
-                .map(DynamicImage::ImageRgba8)
-                .ok_or(StaticCursorLoaderError::ImageBufferError)?;
+                    let icon_image = e.decode()?;
 
-                let image = Image::from_dynamic(image, true, RenderAssetUsages::MAIN_WORLD);
+                    let image = ImageBuffer::from_raw(
+                        icon_image.width(),
+                        icon_image.height(),
+                        icon_image.rgba_data().to_vec(),
+                    )
+                    .map(DynamicImage::ImageRgba8)
+                    .ok_or(StaticCursorLoaderError::ImageBufferError)?;
 
-                let hotspot = icon_image
-                    .cursor_hotspot()
-                    .ok_or(StaticCursorLoaderError::MissingHotspot)?;
+                    let image =
+                        bevy_image::Image::from_dynamic(image, true, RenderAssetUsages::MAIN_WORLD);
 
-                Ok((
-                    (
-                        load_context
-                            .labeled_asset_scope(format!("image_{}", i).to_string(), |_| {
-                                image.clone()
-                            }),
-                        image,
-                    ),
-                    hotspot,
-                ))
-            })
-            .collect::<Result<Vec<_>, StaticCursorLoaderError>>()?;
+                    let hotspot = icon_image
+                        .cursor_hotspot()
+                        .ok_or(StaticCursorLoaderError::MissingHotspot)?;
+
+                    Ok((
+                        (
+                            load_context
+                                .labeled_asset_scope(format!("image_{}", i).to_string(), |_| {
+                                    image.clone()
+                                }),
+                            image,
+                        ),
+                        hotspot,
+                    ))
+                })
+                .collect::<Result<Vec<_>, StaticCursorLoaderError>>()?;
 
         let mut texture_atlas_builder = TextureAtlasBuilder::default();
 
