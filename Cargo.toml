@@ -16,7 +16,7 @@ bevy_asset = "0.15"
 bevy_image = "0.15"
 bevy_reflect = "0.15"
 bevy_sprite = "0.15"
-bitflags = { version = "2.6", default-features = false }
+bitflags = { version = "2.7", default-features = false }
 byteorder = "1.5"
 ico = "0.4"
 image = "0.25"
