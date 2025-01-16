@@ -11,10 +11,41 @@ use crate::{
     hotspot::CursorHotspots,
 };
 
+#[cfg(feature = "serde_json_asset")]
+use super::serde_asset::JsonDeserializer;
+#[cfg(feature = "serde_ron_asset")]
+use super::serde_asset::RonDeserializer;
+#[cfg(feature = "serde_asset")]
+use super::serde_asset::SerdeStaticCursorAssetPlugin;
+#[cfg(feature = "serde_toml_asset")]
+use super::serde_asset::TomlDeserializer;
+
 pub struct StaticCursorAssetPlugin;
 
 impl Plugin for StaticCursorAssetPlugin {
     fn build(&self, app: &mut App) {
+        #[cfg(feature = "serde_asset")]
+        {
+            #[cfg(feature = "serde_json_asset")]
+            if !app.is_plugin_added::<SerdeStaticCursorAssetPlugin<JsonDeserializer>>() {
+                app.add_plugins(SerdeStaticCursorAssetPlugin::<JsonDeserializer>::new(
+                    ["CUR.json", "cur.json"].to_vec(),
+                ));
+            }
+            #[cfg(feature = "serde_ron_asset")]
+            if !app.is_plugin_added::<SerdeStaticCursorAssetPlugin<RonDeserializer>>() {
+                app.add_plugins(SerdeStaticCursorAssetPlugin::<RonDeserializer>::new(
+                    ["CUR.ron", "cur.ron"].to_vec(),
+                ));
+            }
+            #[cfg(feature = "serde_toml_asset")]
+            if !app.is_plugin_added::<SerdeStaticCursorAssetPlugin<TomlDeserializer>>() {
+                app.add_plugins(SerdeStaticCursorAssetPlugin::<TomlDeserializer>::new(
+                    ["CUR.toml", "cur.toml"].to_vec(),
+                ));
+            }
+        }
+
         app.init_asset::<StaticCursor>()
             .init_asset_loader::<StaticCursorLoader>()
             .register_asset_reflect::<StaticCursor>();
@@ -24,7 +55,9 @@ impl Plugin for StaticCursorAssetPlugin {
 #[derive(Asset, Clone, Debug, Reflect)]
 #[reflect(Debug)]
 pub struct StaticCursor {
+    /// A handle to the image asset.
     pub image: Handle<Image>,
+    /// A handle to the texture atlas layout asset.
     pub texture_atlas_layout: Handle<TextureAtlasLayout>,
     /// The hotspot data.
     pub hotspots: CursorHotspots,
@@ -43,6 +76,7 @@ impl StaticCursor {
     }
 }
 
+/// A loader for static cursor assets from .CUR files.
 #[derive(Clone, Debug, Default, Reflect)]
 #[reflect(Debug, Default)]
 pub struct StaticCursorLoader;

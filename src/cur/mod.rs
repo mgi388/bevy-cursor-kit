@@ -1,5 +1,7 @@
 pub mod asset;
 pub mod decoder;
+#[cfg(feature = "serde_asset")]
+mod serde_asset;
 
 use ico::IconDir;
 #[cfg(feature = "serde")]

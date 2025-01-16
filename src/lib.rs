@@ -3,6 +3,7 @@ use bevy_app::prelude::*;
 use crate::{ani::asset::AnimatedCursorAssetPlugin, cur::asset::StaticCursorAssetPlugin};
 
 pub mod ani;
+mod asset_image;
 mod builder;
 pub mod cur;
 pub mod hotspot;
