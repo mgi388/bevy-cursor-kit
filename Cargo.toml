@@ -9,6 +9,10 @@ license = "MIT OR Apache-2.0"
 [features]
 default = []
 serde = ["dep:serde", "bitflags/serde", "ico/serde"]
+serde_asset = ["serde"]
+serde_json_asset = ["dep:serde_json", "serde_asset"]
+serde_ron_asset = ["dep:ron", "serde_asset"]
+serde_toml_asset = ["dep:toml", "serde_asset"]
 
 # TODO: Change 0.16.0-dev to 0.16.0 once Bevy 0.16 is released.
 [dependencies]
@@ -24,8 +28,11 @@ byteorder = "1.5"
 ico = "0.4"
 image = "0.25"
 riff = "2"
+ron = { version = "0.8", optional = true, default-features = false }
 serde = { version = "1", optional = true, default-features = false }
+serde_json = { version = "1", optional = true }
 thiserror = "2"
+toml = { version = "0.8", optional = true }
 
 # TODO: Change 0.16.0-dev to 0.16.0 once Bevy 0.16 is released.
 [dev-dependencies]
@@ -41,8 +48,17 @@ bevy = { version = "0.16.0-dev", default-features = false, features = [
 ] }
 ron = "0.8"
 
+[lints.clippy]
+type_complexity = "allow"
+
 [package.metadata.docs.rs]
 all-features = true
+
+[[example]]
+name = "cur_ron_asset"
+path = "examples/cur_ron_asset.rs"
+doc-scrape-examples = true
+required-features = ["serde_ron_asset"]
 
 # TODO: Remove once Bevy 0.16 is released.
 [patch.crates-io]

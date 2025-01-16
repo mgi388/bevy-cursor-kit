@@ -1,4 +1,4 @@
-# Bevy cursor kit
+# `bevy_cursor_kit`
 
 [![Crates.io](https://img.shields.io/crates/v/bevy_cursor_kit.svg)](https://crates.io/crates/bevy_cursor_kit)
 [![Docs.rs](https://docs.rs/bevy_cursor_kit/badge.svg)](https://docs.rs/bevy_cursor_kit)
@@ -6,10 +6,45 @@
 
 ## Summary
 
-Allows you to load .CUR and .ANI cursor files in your Bevy app and use them in custom `CursorIcon`s.
+`bevy_cursor_kit` is a crate for Bevy apps that lets you load cursor assets in various formats and use them as custom `CursorIcon`s.
 
-- .CUR files can be used for static cursor icons like a grabbing hand.
-- .ANI files can be used for animated cursor icons like an hourglass.
+## Features
+
+### `.CUR` and `.ANI` binary formats
+
+Load the classic Microsoft Windows `.CUR` and `.ANI` cursor file formats.
+
+- `.CUR` files can be used for static cursor icons like a grabbing hand.
+- `.ANI` files can be used for animated cursor icons like an hourglass.
+
+### `.cur.json` ,`.cur.ron`, `.cur.toml` text formats
+
+Text-based versions of the classic `.CUR` static cursor file format.
+
+Write your static cursors in JSON, RON, or TOML and `bevy_cursor_kit` can load them for you.
+
+```ron
+(
+    image: (
+        path: "path/to/sprite-sheet.png",
+    ),
+    texture_atlas_layout: (
+        tile_size: (32, 32),
+        columns: 20,
+        rows: 10,
+    ),
+    hotspots: (
+        default: (0, 0),
+        overrides: {
+            11: (32, 32),
+            95: (32, 8),
+        },
+    ),
+)
+
+```
+
+Check out the [cur_ron_asset.rs example](example/cur_ron_asset.rs) for more details.
 
 ## Quick start
 
@@ -41,6 +76,12 @@ commands
       // Most .CUR are expected to only have one frame so just use index 0.
       hotspot: cursor.hotspot_or_default(0),
   }));
+```
+
+If you want to use the text-based formats, enable the `serde_json_asset`, `serde_ron_asset`, or `serde_toml_asset` feature in your `Cargo.toml` and load away:
+
+```rust
+let handle = asset_server.load("example.cur.ron");
 ```
 
 Check out the [examples](examples) for more details.
