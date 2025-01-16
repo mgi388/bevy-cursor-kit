@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 
+use bevy_ecs::prelude::*;
 use bevy_reflect::prelude::*;
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
@@ -12,9 +13,9 @@ use serde::{Deserialize, Serialize};
 ///
 /// A hotspot is defined as a pair of `(x, y)` coordinates, where `(0, 0)` is
 /// the top-left corner of the cursor's image.
-#[derive(Debug, Clone, Default, Reflect)]
+#[derive(Clone, Component, Debug, Default, Reflect)]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
-#[reflect(Debug, Default)]
+#[reflect(Component, Debug, Default)]
 #[cfg_attr(feature = "serde", reflect(Deserialize, Serialize))]
 pub struct CursorHotspots {
     /// The default hotspot for the cursor.

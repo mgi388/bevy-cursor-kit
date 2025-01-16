@@ -1,7 +1,4 @@
-use bevy::{
-    prelude::*,
-    winit::cursor::{CursorIcon, CustomCursor},
-};
+use bevy::{prelude::*, winit::cursor::CursorIcon};
 use bevy_cursor_kit::prelude::*;
 
 fn main() {
@@ -42,23 +39,9 @@ fn insert_cursor(
         return;
     };
 
-    let texture_atlas_index = 0;
-
-    commands
-        .entity(*window)
-        .insert(CursorIcon::Custom(CustomCursor::Image {
-            handle: c.image.clone(),
-            // TODO: Update for > Bevy 0.15.
-            //
-            // texture_atlas: Some(TextureAtlas {
-            //     layout: c.texture_atlas_layout.clone(),
-            //     index: texture_atlas_index,
-            // }),
-            // flip_x: false,
-            // flip_y: false,
-            // rect: None,
-            hotspot: c.hotspot_or_default(texture_atlas_index),
-        }));
+    commands.entity(*window).insert(CursorIcon::Custom(
+        CustomCursorImageBuilder::from_static_cursor(c, None).build(),
+    ));
 
     *setup = true;
 }
