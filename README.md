@@ -71,11 +71,9 @@ let Some(cursor) = static_cursors.get(&handle) else {
 
 commands
   .entity(window)
-  .insert(CursorIcon::Custom(CustomCursor::Image {
-      handle: cursor.image.clone(),
-      // Most .CUR are expected to only have one frame so just use index 0.
-      hotspot: cursor.hotspot_or_default(0),
-  }));
+  .insert(CursorIcon::Custom(
+    CustomCursorImageBuilder::from_static_cursor(cursor, None).build(),
+  ));
 ```
 
 If you want to use the text-based formats, enable the `serde_json_asset`, `serde_ron_asset`, or `serde_toml_asset` feature in your `Cargo.toml` and load away:
