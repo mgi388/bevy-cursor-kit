@@ -3,12 +3,16 @@ use bevy_app::prelude::*;
 use crate::{ani::asset::AnimatedCursorAssetPlugin, cur::asset::StaticCursorAssetPlugin};
 
 pub mod ani;
+mod builder;
 pub mod cur;
 pub mod hotspot;
 
 pub mod prelude {
     #[doc(hidden)]
-    pub use crate::{ani::asset::*, cur::asset::*, CursorAssetPlugin};
+    pub use crate::{
+        ani::asset::AnimatedCursor, builder::CustomCursorImageBuilder, cur::asset::StaticCursor,
+        hotspot::CursorHotspots, CursorAssetPlugin,
+    };
 }
 
 pub struct CursorAssetPlugin;

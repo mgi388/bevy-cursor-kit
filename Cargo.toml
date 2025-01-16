@@ -10,12 +10,15 @@ license = "MIT OR Apache-2.0"
 default = []
 serde = ["dep:serde", "bitflags/serde", "ico/serde"]
 
+# TODO: Change 0.16.0-dev to 0.16.0 once Bevy 0.16 is released.
 [dependencies]
-bevy_app = "0.15"
-bevy_asset = "0.15"
-bevy_image = "0.15"
-bevy_reflect = "0.15"
-bevy_sprite = "0.15"
+bevy_app = "0.16.0-dev"
+bevy_ecs = "0.16.0-dev"
+bevy_asset = "0.16.0-dev"
+bevy_image = "0.16.0-dev"
+bevy_math = "0.16.0-dev"
+bevy_reflect = "0.16.0-dev"
+bevy_winit = { version = "0.16.0-dev", features = ["custom_cursor"] }
 bitflags = { version = "2.7", default-features = false }
 byteorder = "1.5"
 ico = "0.4"
@@ -24,16 +27,30 @@ riff = "2"
 serde = { version = "1", optional = true, default-features = false }
 thiserror = "2"
 
+# TODO: Change 0.16.0-dev to 0.16.0 once Bevy 0.16 is released.
 [dev-dependencies]
-bevy = { version = "0.15", default-features = false, features = [
-    "bevy_sprite",
+bevy = { version = "0.16.0-dev", default-features = false, features = [
+    "bevy_ui",
     "bevy_window",
     "bevy_winit",
     "custom_cursor",
+    "default_font",
     "multi_threaded",
+    "png",
     "x11",
 ] }
 ron = "0.8"
 
 [package.metadata.docs.rs]
 all-features = true
+
+# TODO: Remove once Bevy 0.16 is released.
+[patch.crates-io]
+bevy = { git = "https://github.com/bevyengine/bevy.git", branch = "main" }
+bevy_app = { git = "https://github.com/bevyengine/bevy.git", branch = "main" }
+bevy_asset = { git = "https://github.com/bevyengine/bevy.git", branch = "main" }
+bevy_ecs = { git = "https://github.com/bevyengine/bevy.git", branch = "main" }
+bevy_image = { git = "https://github.com/bevyengine/bevy.git", branch = "main" }
+bevy_math = { git = "https://github.com/bevyengine/bevy.git", branch = "main" }
+bevy_reflect = { git = "https://github.com/bevyengine/bevy.git", branch = "main" }
+bevy_winit = { git = "https://github.com/bevyengine/bevy.git", branch = "main" }

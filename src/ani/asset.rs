@@ -2,9 +2,8 @@ use std::time::Duration;
 
 use bevy_app::prelude::*;
 use bevy_asset::{io::Reader, prelude::*, AssetLoader, LoadContext, RenderAssetUsages};
-use bevy_image::Image;
+use bevy_image::{Image, TextureAtlasBuilder, TextureAtlasBuilderError, TextureAtlasLayout};
 use bevy_reflect::prelude::*;
-use bevy_sprite::{TextureAtlasBuilder, TextureAtlasBuilderError, TextureAtlasLayout};
 use ico::ResourceType;
 use image::{DynamicImage, ImageBuffer};
 use thiserror::Error;
