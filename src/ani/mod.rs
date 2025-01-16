@@ -1,5 +1,8 @@
+pub mod animation;
 pub mod asset;
 pub mod decoder;
+
+use std::time::Duration;
 
 use bevy_reflect::prelude::*;
 use bitflags::bitflags;
@@ -56,6 +59,13 @@ bitflags! {
         const ICON_OR_CURSOR_DATA = 1 << 0;
         /// If set, the 'seq '-chunk is present.
         const HAS_SEQUENCE_CHUNK = 1 << 1;
+    }
+}
+
+impl AnimatedCursorMetadata {
+    #[inline(always)]
+    pub fn duration_per_frame(&self) -> Duration {
+        Duration::from_secs_f32(self.ticks_per_frame as f32 / 60.0)
     }
 }
 
