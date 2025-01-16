@@ -17,6 +17,8 @@ use crate::{
     hotspot::CursorHotspots,
 };
 
+use super::animation::*;
+
 pub struct AnimatedCursorAssetPlugin;
 
 impl Plugin for AnimatedCursorAssetPlugin {
@@ -30,11 +32,15 @@ impl Plugin for AnimatedCursorAssetPlugin {
 #[derive(Asset, Clone, Debug, Reflect)]
 #[reflect(Debug)]
 pub struct AnimatedCursor {
-    pub metadata: AnimatedCursorMetadata,
+    metadata: AnimatedCursorMetadata,
+    /// A handle to the image asset.
     pub image: Handle<Image>,
+    /// A handle to the texture atlas layout asset.
     pub texture_atlas_layout: Handle<TextureAtlasLayout>,
     /// The hotspot data.
     pub hotspots: CursorHotspots,
+    /// The animation to play.
+    pub animation: Animation,
 }
 
 impl AnimatedCursor {
@@ -45,11 +51,13 @@ impl AnimatedCursor {
         self.hotspots.get_or_default(index)
     }
 
+    #[inline(always)]
     pub fn duration_per_frame(&self) -> Duration {
-        Duration::from_secs_f32(self.metadata.ticks_per_frame as f32 / 60.0)
+        self.metadata.duration_per_frame()
     }
 }
 
+/// A loader for animated cursor assets from .ANI files.
 #[derive(Clone, Debug, Default, Reflect)]
 #[reflect(Debug, Default)]
 pub struct AnimatedCursorLoader;
@@ -196,10 +204,21 @@ impl AssetLoader for AnimatedCursorLoader {
         };
 
         Ok(AnimatedCursor {
-            metadata: c.metadata,
+            metadata: c.metadata.clone(),
             image,
             texture_atlas_layout,
             hotspots,
+            animation: Animation {
+                clips: vec![AnimationClip {
+                    atlas_indices: (0..c.metadata.frame_count as usize).collect(),
+                    duration: AnimationDuration::PerFrame(
+                        c.metadata.duration_per_frame().as_millis() as u32,
+                    ),
+                    direction: AnimationDirection::Forwards,
+                }],
+                repeat: AnimationRepeat::Loop,
+                direction: AnimationDirection::Forwards,
+            },
         })
     }
 
