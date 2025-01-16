@@ -86,7 +86,8 @@ Check out the [examples](examples) for more details.
 
 ## Version compatibility
 
-> [!WARNING] > `bevy_cursor_kit@0.3` is compatible with `bevy@0.15` and allows you to decode `.CUR` and `.ANI` files. Most of the benefits of this crate will come when `bevy@0.16` is released, so use `main` if you can.
+> [!WARNING]
+> `bevy_cursor_kit@0.3` is compatible with `bevy@0.15` and allows you to decode `.CUR` and `.ANI` files. Most of the benefits of this crate will come when `bevy@0.16` is released, so use `main` if you can.
 
 | bevy | bevy_cursor_kit |
 | ---- | --------------- |
