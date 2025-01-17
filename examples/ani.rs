@@ -18,14 +18,14 @@ fn main() {
 #[derive(Debug, Resource, Reflect)]
 #[reflect(Debug, Resource)]
 struct Cursors {
-    animated_cursor: Handle<AnimatedCursor>,
+    cursor: Handle<AnimatedCursor>,
 }
 
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn(Camera2d);
 
     commands.insert_resource(Cursors {
-        animated_cursor: asset_server.load("Master Sword-Fairy.ANI"),
+        cursor: asset_server.load("Master Sword-Fairy.ANI"),
     });
 }
 
@@ -40,7 +40,7 @@ fn insert_cursor(
         return;
     }
 
-    let Some(c) = animated_cursors.get(&cursors.animated_cursor.clone()) else {
+    let Some(c) = animated_cursors.get(&cursors.cursor.clone()) else {
         return;
     };
 
@@ -59,6 +59,7 @@ fn insert_cursor(
 
     *setup = true;
 }
+
 #[derive(Component, Debug, Reflect)]
 #[reflect(Debug, Component)]
 struct AnimationConfig {
