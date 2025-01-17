@@ -25,12 +25,12 @@ fn main() {
 #[derive(Debug, Resource, Reflect)]
 #[reflect(Debug, Resource)]
 struct Cursors {
-    static_cursor: Handle<StaticCursor>,
+    cursor: Handle<StaticCursor>,
 }
 
 fn setup_cursor(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.insert_resource(Cursors {
-        static_cursor: asset_server.load("kenney_crosshairPack.cur.ron"),
+        cursor: asset_server.load("kenney_crosshairPack.cur.ron"),
     });
 }
 
@@ -45,7 +45,7 @@ fn insert_cursor(
         return;
     }
 
-    let Some(c) = static_cursors.get(&cursors.static_cursor.clone()) else {
+    let Some(c) = static_cursors.get(&cursors.cursor.clone()) else {
         return;
     };
 
@@ -79,7 +79,7 @@ fn toggle_cursor(
         return;
     }
 
-    let Some(c) = static_cursors.get(&cursors.static_cursor.clone()) else {
+    let Some(c) = static_cursors.get(&cursors.cursor.clone()) else {
         return;
     };
 

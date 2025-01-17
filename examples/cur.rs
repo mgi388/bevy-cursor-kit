@@ -13,14 +13,14 @@ fn main() {
 #[derive(Debug, Resource, Reflect)]
 #[reflect(Debug, Resource)]
 struct Cursors {
-    static_cursor: Handle<StaticCursor>,
+    cursor: Handle<StaticCursor>,
 }
 
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn(Camera2d);
 
     commands.insert_resource(Cursors {
-        static_cursor: asset_server.load("Master Sword.CUR"),
+        cursor: asset_server.load("Master Sword.CUR"),
     });
 }
 
@@ -35,7 +35,7 @@ fn insert_cursor(
         return;
     }
 
-    let Some(c) = static_cursors.get(&cursors.static_cursor.clone()) else {
+    let Some(c) = static_cursors.get(&cursors.cursor.clone()) else {
         return;
     };
 
