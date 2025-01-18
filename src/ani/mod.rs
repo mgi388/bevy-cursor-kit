@@ -1,6 +1,8 @@
 pub mod animation;
 pub mod asset;
 pub mod decoder;
+#[cfg(feature = "serde_asset")]
+mod serde_asset;
 
 use std::time::Duration;
 

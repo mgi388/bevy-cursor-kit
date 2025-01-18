@@ -1,5 +1,3 @@
-use std::time::Duration;
-
 use bevy_app::prelude::*;
 use bevy_asset::{io::Reader, prelude::*, AssetLoader, LoadContext, RenderAssetUsages};
 use bevy_image::{Image, TextureAtlasBuilder, TextureAtlasBuilderError, TextureAtlasLayout};
@@ -17,11 +15,41 @@ use crate::{
 };
 
 use super::animation::*;
+#[cfg(feature = "serde_json_asset")]
+use super::serde_asset::JsonDeserializer;
+#[cfg(feature = "serde_ron_asset")]
+use super::serde_asset::RonDeserializer;
+#[cfg(feature = "serde_asset")]
+use super::serde_asset::SerdeAnimatedCursorAssetPlugin;
+#[cfg(feature = "serde_toml_asset")]
+use super::serde_asset::TomlDeserializer;
 
 pub struct AnimatedCursorAssetPlugin;
 
 impl Plugin for AnimatedCursorAssetPlugin {
     fn build(&self, app: &mut App) {
+        #[cfg(feature = "serde_asset")]
+        {
+            #[cfg(feature = "serde_json_asset")]
+            if !app.is_plugin_added::<SerdeAnimatedCursorAssetPlugin<JsonDeserializer>>() {
+                app.add_plugins(SerdeAnimatedCursorAssetPlugin::<JsonDeserializer>::new(
+                    ["ANI.json", "ani.json"].to_vec(),
+                ));
+            }
+            #[cfg(feature = "serde_ron_asset")]
+            if !app.is_plugin_added::<SerdeAnimatedCursorAssetPlugin<RonDeserializer>>() {
+                app.add_plugins(SerdeAnimatedCursorAssetPlugin::<RonDeserializer>::new(
+                    ["ANI.ron", "ani.ron"].to_vec(),
+                ));
+            }
+            #[cfg(feature = "serde_toml_asset")]
+            if !app.is_plugin_added::<SerdeAnimatedCursorAssetPlugin<TomlDeserializer>>() {
+                app.add_plugins(SerdeAnimatedCursorAssetPlugin::<TomlDeserializer>::new(
+                    ["ANI.toml", "ani.toml"].to_vec(),
+                ));
+            }
+        }
+
         app.init_asset::<AnimatedCursor>()
             .init_asset_loader::<AnimatedCursorLoader>()
             .register_asset_reflect::<AnimatedCursor>();
@@ -31,7 +59,9 @@ impl Plugin for AnimatedCursorAssetPlugin {
 #[derive(Asset, Clone, Debug, Reflect)]
 #[reflect(Debug)]
 pub struct AnimatedCursor {
-    metadata: AnimatedCursorMetadata,
+    /// The metadata for the animated cursor. This is optional and only set for
+    /// .ANI files.
+    pub(super) metadata: Option<AnimatedCursorMetadata>,
     /// A handle to the image asset.
     pub image: Handle<Image>,
     /// A handle to the texture atlas layout asset.
@@ -48,11 +78,6 @@ impl AnimatedCursor {
     #[inline(always)]
     pub fn hotspot_or_default(&self, index: usize) -> (u16, u16) {
         self.hotspots.get_or_default(index)
-    }
-
-    #[inline(always)]
-    pub fn duration_per_frame(&self) -> Duration {
-        self.metadata.duration_per_frame()
     }
 }
 
@@ -203,7 +228,7 @@ impl AssetLoader for AnimatedCursorLoader {
         };
 
         Ok(AnimatedCursor {
-            metadata: c.metadata.clone(),
+            metadata: Some(c.metadata.clone()),
             image,
             texture_atlas_layout,
             hotspots,
