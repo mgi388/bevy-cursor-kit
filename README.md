@@ -17,11 +17,13 @@ Load the classic Microsoft Windows `.CUR` and `.ANI` cursor file formats.
 - `.CUR` files can be used for static cursor icons like a grabbing hand.
 - `.ANI` files can be used for animated cursor icons like an hourglass.
 
-### `.cur.json` ,`.cur.ron`, `.cur.toml` text formats
+### `.cur.json` ,`.cur.ron`, `.cur.toml`, `.ani.json` ,`.ani.ron`, `.ani.toml` text formats
 
-Text-based versions of the classic `.CUR` static cursor file format.
+Text-based versions of the classic `.CUR` static cursor and `.ANI` animated cursor file formats.
 
-Write your static cursors in JSON, RON, or TOML and `bevy_cursor_kit` can load them for you.
+Write your cursors in JSON, RON, or TOML and `bevy_cursor_kit` can load them for you.
+
+#### Static cursor
 
 ```ron
 (
@@ -41,10 +43,40 @@ Write your static cursors in JSON, RON, or TOML and `bevy_cursor_kit` can load t
         },
     ),
 )
-
 ```
 
 Check out the [cur_ron_asset.rs example](example/cur_ron_asset.rs) for more details.
+
+#### Animated cursor
+
+```ron
+(
+    image: (
+        path: "path/to/sprite-sheet.png",
+    ),
+    texture_atlas_layout: (
+        tile_size: (32, 32),
+        columns: 2,
+        rows: 2,
+    ),
+    hotspots: (
+        default: (0, 0),
+    ),
+    animation: (
+        repeat: Loop,
+        clips: [
+            (
+                atlas_indices: [3, 0, 1, 2],
+                duration: PerFrame(75),
+            ),
+            (
+                atlas_indices: [2],
+                duration: PerFrame(5000),
+            ),
+        ],
+    )
+)
+```
 
 ## Quick start
 
