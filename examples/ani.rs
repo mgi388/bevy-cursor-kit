@@ -5,12 +5,21 @@ use bevy::{
     winit::cursor::{CursorIcon, CustomCursor},
 };
 use bevy_cursor_kit::{ani::animation::AnimationDuration, prelude::*};
+use flip::FlipPlugin;
+use ui::UiPlugin;
+
+#[path = "./helpers/flip.rs"]
+mod flip;
+#[path = "./helpers/ui.rs"]
+mod ui;
 
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
         .add_plugins(CursorAssetPlugin)
-        .add_systems(Startup, setup)
+        .add_plugins(UiPlugin)
+        .add_plugins(FlipPlugin)
+        .add_systems(Startup, (setup_cursor, setup_instructions))
         .add_systems(Update, (insert_cursor, animate_cursor))
         .run();
 }
@@ -21,9 +30,7 @@ struct Cursors {
     cursor: Handle<AnimatedCursor>,
 }
 
-fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
-    commands.spawn(Camera2d);
-
+fn setup_cursor(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.insert_resource(Cursors {
         cursor: asset_server.load("Master Sword-Fairy.ANI"),
     });
@@ -88,12 +95,7 @@ fn animate_cursor(
     mut query: Query<(&mut CursorIcon, &CursorHotspots, &mut AnimationConfig)>,
 ) {
     for (mut cursor_icon, hotspots, mut config) in &mut query {
-        let CursorIcon::Custom(CustomCursor::Image {
-            ref mut texture_atlas,
-            ref mut hotspot,
-            ..
-        }) = *cursor_icon
-        else {
+        let CursorIcon::Custom(CustomCursor::Image(ref mut image)) = *cursor_icon else {
             continue;
         };
 
@@ -103,7 +105,7 @@ fn animate_cursor(
             continue;
         }
 
-        let Some(atlas) = texture_atlas else {
+        let Some(atlas) = image.texture_atlas.as_mut() else {
             continue;
         };
 
@@ -124,10 +126,25 @@ fn animate_cursor(
         // Animation frames may have different hotspots, so we need to update
         // the hotspot for each frame.
         let new_hotspot = hotspots.get_or_default(atlas.index);
-        if new_hotspot != *hotspot {
-            *hotspot = new_hotspot;
+        if new_hotspot != image.hotspot {
+            image.hotspot = new_hotspot;
 
-            info!("Changed to hotspot {:?}", hotspot);
+            info!("Changed to hotspot {:?}", image.hotspot);
         }
     }
+}
+
+fn setup_instructions(mut commands: Commands) {
+    commands.spawn((
+        Text::new(
+            "Press X to toggle the cursor's `flip_x` setting\n
+Press Y to toggle the cursor's `flip_y` setting",
+        ),
+        Node {
+            position_type: PositionType::Absolute,
+            bottom: Val::Px(12.0),
+            left: Val::Px(12.0),
+            ..default()
+        },
+    ));
 }
