@@ -2,7 +2,7 @@ use bevy_asset::Handle;
 use bevy_image::{Image, TextureAtlas};
 use bevy_math::URect;
 use bevy_reflect::prelude::*;
-use bevy_winit::cursor::CustomCursor;
+use bevy_winit::cursor::{CustomCursor, CustomCursorImage};
 
 use crate::{ani::asset::AnimatedCursor, cur::asset::StaticCursor};
 
@@ -87,15 +87,15 @@ impl CustomCursorImageBuilder {
         self
     }
 
-    /// Build the `CustomCursor::Image`.
+    /// Build the [`CustomCursor`].
     pub fn build(self) -> CustomCursor {
-        CustomCursor::Image {
+        CustomCursor::Image(CustomCursorImage {
             handle: self.handle,
             texture_atlas: self.texture_atlas,
             flip_x: self.flip_x,
             flip_y: self.flip_y,
             rect: self.rect,
             hotspot: self.hotspot,
-        }
+        })
     }
 }
