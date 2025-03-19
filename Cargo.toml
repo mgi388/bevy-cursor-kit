@@ -14,15 +14,14 @@ serde_json_asset = ["dep:serde_json", "serde_asset"]
 serde_ron_asset = ["dep:ron", "serde_asset"]
 serde_toml_asset = ["dep:toml", "serde_asset"]
 
-# TODO: Change 0.16.0-dev to 0.16.0 once Bevy 0.16 is released.
 [dependencies]
-bevy_app = "0.16.0-dev"
-bevy_ecs = "0.16.0-dev"
-bevy_asset = "0.16.0-dev"
-bevy_image = "0.16.0-dev"
-bevy_math = "0.16.0-dev"
-bevy_reflect = "0.16.0-dev"
-bevy_winit = { version = "0.16.0-dev", features = ["custom_cursor"] }
+bevy_app = "0.16.0-rc"
+bevy_ecs = "0.16.0-rc"
+bevy_asset = "0.16.0-rc"
+bevy_image = "0.16.0-rc"
+bevy_math = "0.16.0-rc"
+bevy_reflect = "0.16.0-rc"
+bevy_winit = { version = "0.16.0-rc", features = ["custom_cursor"] }
 bitflags = { version = "2.8", default-features = false }
 byteorder = "1.5"
 ico = "0.4"
@@ -34,9 +33,9 @@ serde_json = { version = "1", optional = true }
 thiserror = "2"
 toml = { version = "0.8", optional = true }
 
-# TODO: Change 0.16.0-dev to 0.16.0 once Bevy 0.16 is released.
 [dev-dependencies]
-bevy = { version = "0.16.0-dev", default-features = false, features = [
+bevy = { version = "0.16.0-rc", default-features = false, features = [
+    "bevy_log",
     "bevy_ui",
     "bevy_window",
     "bevy_winit",
@@ -59,14 +58,3 @@ name = "cur_ron_asset"
 path = "examples/cur_ron_asset.rs"
 doc-scrape-examples = true
 required-features = ["serde_ron_asset"]
-
-# TODO: Remove once Bevy 0.16 is released.
-[patch.crates-io]
-bevy = { git = "https://github.com/bevyengine/bevy.git", branch = "main" }
-bevy_app = { git = "https://github.com/bevyengine/bevy.git", branch = "main" }
-bevy_asset = { git = "https://github.com/bevyengine/bevy.git", branch = "main" }
-bevy_ecs = { git = "https://github.com/bevyengine/bevy.git", branch = "main" }
-bevy_image = { git = "https://github.com/bevyengine/bevy.git", branch = "main" }
-bevy_math = { git = "https://github.com/bevyengine/bevy.git", branch = "main" }
-bevy_reflect = { git = "https://github.com/bevyengine/bevy.git", branch = "main" }
-bevy_winit = { git = "https://github.com/bevyengine/bevy.git", branch = "main" }
