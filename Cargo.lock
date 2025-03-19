@@ -635,7 +635,7 @@ dependencies = [
 
 [[package]]
 name = "bevy_cursor_kit"
-version = "0.3.0"
+version = "0.4.0"
 dependencies = [
  "bevy 0.16.0-rc.1",
  "bevy_app 0.16.0-rc.1",
