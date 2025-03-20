@@ -1,6 +1,6 @@
 [package]
 name = "bevy_cursor_kit"
-version = "0.4.1"
+version = "0.4.2"
 edition = "2021"
 description = "A Bevy plugin for working with cursors."
 repository = "https://github.com/mgi388/bevy-cursor-kit"
@@ -21,7 +21,7 @@ bevy_asset = "0.16.0-rc"
 bevy_image = "0.16.0-rc"
 bevy_math = "0.16.0-rc"
 bevy_reflect = "0.16.0-rc"
-bevy_winit = { version = "0.16.0-rc", features = ["custom_cursor"] }
+bevy_winit = { version = "0.16.0-rc", features = ["custom_cursor", "x11"] }
 bitflags = { version = "2.9", default-features = false }
 byteorder = "1.5"
 ico = "0.4"
