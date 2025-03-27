@@ -1,6 +1,6 @@
 [package]
 name = "bevy_cursor_kit"
-version = "0.4.2"
+version = "0.4.3"
 edition = "2021"
 description = "A Bevy plugin for working with cursors."
 repository = "https://github.com/mgi388/bevy-cursor-kit"
