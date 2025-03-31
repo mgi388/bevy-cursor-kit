@@ -99,9 +99,6 @@ pub enum StaticCursorLoaderError {
     ImageBufferError,
     #[error("could not build texture atlas: {0}")]
     TextureAtlasBuilderError(#[from] TextureAtlasBuilderError),
-    /// A [bevy_asset::DuplicateLabelAssetError] error.
-    #[error("duplicate asset label: {0}")]
-    DuplicateLabelAssetError(#[from] bevy_asset::DuplicateLabelAssetError),
 }
 
 impl AssetLoader for StaticCursorLoader {
@@ -156,7 +153,7 @@ impl AssetLoader for StaticCursorLoader {
                             load_context
                                 .labeled_asset_scope(format!("image_{}", i).to_string(), |_| {
                                     image.clone()
-                                })?,
+                                }),
                             image,
                         ),
                         hotspot,
@@ -177,8 +174,8 @@ impl AssetLoader for StaticCursorLoader {
         let (texture_atlas_layout, _, image) = texture_atlas_builder.build()?;
 
         let texture_atlas_layout = load_context
-            .labeled_asset_scope("texture_atlas_layout".to_string(), |_| texture_atlas_layout)?;
-        let image = load_context.labeled_asset_scope("image".to_string(), |_| image)?;
+            .labeled_asset_scope("texture_atlas_layout".to_string(), |_| texture_atlas_layout);
+        let image = load_context.labeled_asset_scope("image".to_string(), |_| image);
 
         // Convert the hotspots to a `CursorHotspots` struct. The `overrides`
         // are constructed to include an entry for every frame. This means that
