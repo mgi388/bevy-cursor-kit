@@ -40,7 +40,7 @@ pub(crate) async fn load_image(
             dependency: path.clone().into(),
         })?;
 
-    let img = loaded.get_asset().get();
+    let img = loaded.get();
 
     let mut dyn_img = img
         .clone()

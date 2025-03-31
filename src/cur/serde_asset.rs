@@ -169,9 +169,6 @@ pub enum SerdeStaticCursorLoaderError {
     /// A [LoadImageError] error.
     #[error("could not load image: {0}")]
     LoadImageError(#[from] LoadImageError),
-    /// A [bevy_asset::DuplicateLabelAssetError] error.
-    #[error("duplicate asset label: {0}")]
-    DuplicateLabelAssetError(#[from] bevy_asset::DuplicateLabelAssetError),
 }
 
 impl<D: Deserializer> AssetLoader for SerdeStaticCursorLoader<D> {
@@ -201,7 +198,7 @@ impl<D: Deserializer> AssetLoader for SerdeStaticCursorLoader<D> {
                 c.image.flip_y,
             )
             .await?;
-            load_context.add_labeled_asset("image".to_string(), image)?
+            load_context.add_labeled_asset("image".to_string(), image)
         } else {
             load_context.load(&c.image.path)
         };
@@ -215,7 +212,7 @@ impl<D: Deserializer> AssetLoader for SerdeStaticCursorLoader<D> {
         );
 
         let texture_atlas_layout = load_context
-            .labeled_asset_scope("texture_atlas_layout".to_string(), |_| texture_atlas_layout)?;
+            .labeled_asset_scope("texture_atlas_layout".to_string(), |_| texture_atlas_layout);
 
         Ok(StaticCursor {
             image,
