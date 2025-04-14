@@ -20,7 +20,7 @@ bevy_ecs = "0.16.0-rc"
 bevy_asset = "0.16.0-rc"
 bevy_image = "0.16.0-rc"
 bevy_math = "0.16.0-rc"
-bevy_reflect = "0.16.0-rc"
+bevy_reflect = "0.16.0-rc.4"
 bevy_winit = { version = "0.16.0-rc", features = ["custom_cursor"] }
 bitflags = { version = "2.9", default-features = false }
 byteorder = "1.5"
