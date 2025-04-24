@@ -15,13 +15,13 @@ serde_ron_asset = ["dep:ron", "serde_asset"]
 serde_toml_asset = ["dep:toml", "serde_asset"]
 
 [dependencies]
-bevy_app = "0.16.0-rc"
-bevy_ecs = "0.16.0-rc"
-bevy_asset = "0.16.0-rc"
-bevy_image = "0.16.0-rc"
-bevy_math = "0.16.0-rc"
-bevy_reflect = "0.16.0-rc"
-bevy_winit = { version = "0.16.0-rc", features = ["custom_cursor"] }
+bevy_app = "0.16"
+bevy_ecs = "0.16"
+bevy_asset = "0.16"
+bevy_image = "0.16"
+bevy_math = "0.16"
+bevy_reflect = "0.16"
+bevy_winit = { version = "0.16", features = ["custom_cursor"] }
 bitflags = { version = "2.9", default-features = false }
 byteorder = "1.5"
 ico = "0.4"
@@ -34,7 +34,7 @@ thiserror = "2"
 toml = { version = "0.8", optional = true }
 
 [dev-dependencies]
-bevy = { version = "0.16.0-rc", default-features = false, features = [
+bevy = { version = "0.16", default-features = false, features = [
     "bevy_log",
     "bevy_ui",
     "bevy_window",
