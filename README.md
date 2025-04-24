@@ -17,7 +17,7 @@ Load the classic Microsoft Windows `.CUR` and `.ANI` cursor file formats.
 - `.CUR` files can be used for static cursor icons like a grabbing hand.
 - `.ANI` files can be used for animated cursor icons like an hourglass.
 
-### `.cur.json` ,`.cur.ron`, `.cur.toml`, `.ani.json` ,`.ani.ron`, `.ani.toml` text formats
+### `.cur.json`, `.cur.ron`, `.cur.toml`, `.ani.json`, `.ani.ron`, `.ani.toml` text formats
 
 Text-based versions of the classic `.CUR` static cursor and `.ANI` animated cursor file formats.
 
