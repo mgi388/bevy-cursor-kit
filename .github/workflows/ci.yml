@@ -16,7 +16,7 @@ jobs:
       - name: Install Linux deps
         run: |
           sudo apt update
-          sudo apt install -y --no-install-recommends libasound2-dev
+          sudo apt install -y --no-install-recommends libasound2-dev libudev-dev libwayland-dev libxkbcommon-dev
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
@@ -46,7 +46,7 @@ jobs:
       - name: Install Linux deps
         run: |
           sudo apt update
-          sudo apt install -y --no-install-recommends libasound2-dev
+          sudo apt install -y --no-install-recommends libasound2-dev libudev-dev libwayland-dev libxkbcommon-dev
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
@@ -64,7 +64,7 @@ jobs:
       - name: Install Linux deps
         run: |
           sudo apt update
-          sudo apt install -y --no-install-recommends libasound2-dev
+          sudo apt install -y --no-install-recommends libasound2-dev libudev-dev libwayland-dev libxkbcommon-dev
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
@@ -82,7 +82,7 @@ jobs:
       - name: Install Linux deps
         run: |
           sudo apt update
-          sudo apt install -y --no-install-recommends libasound2-dev
+          sudo apt install -y --no-install-recommends libasound2-dev libudev-dev libwayland-dev libxkbcommon-dev
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
