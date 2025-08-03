@@ -1,8 +1,8 @@
 use std::time::Duration;
 
 use bevy::{
+    cursor_icon::{CursorIcon, CustomCursor},
     prelude::*,
-    winit::cursor::{CursorIcon, CustomCursor},
 };
 use bevy_cursor_kit::{ani::animation::AnimationDuration, prelude::*};
 use flip::FlipPlugin;

@@ -1,4 +1,4 @@
-use bevy::{prelude::*, winit::cursor::CursorIcon};
+use bevy::{cursor_icon::CursorIcon, prelude::*};
 use bevy_cursor_kit::prelude::*;
 use flip::FlipPlugin;
 use ui::UiPlugin;

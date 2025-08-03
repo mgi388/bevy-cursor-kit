@@ -186,10 +186,10 @@ impl AssetLoader for AnimatedCursorLoader {
 
                 Ok((
                     (
-                        load_context
-                            .labeled_asset_scope(format!("image_{}", i).to_string(), |_| {
-                                image.clone()
-                            }),
+                        load_context.labeled_asset_scope(
+                            format!("image_{}", i).to_string(),
+                            |_| -> Result<Image, AnimatedCursorLoaderError> { Ok(image.clone()) },
+                        )?,
                         image,
                     ),
                     hotspot,
@@ -209,9 +209,16 @@ impl AssetLoader for AnimatedCursorLoader {
 
         let (texture_atlas_layout, _, image) = texture_atlas_builder.build()?;
 
-        let texture_atlas_layout = load_context
-            .labeled_asset_scope("texture_atlas_layout".to_string(), |_| texture_atlas_layout);
-        let image = load_context.labeled_asset_scope("image".to_string(), |_| image);
+        let texture_atlas_layout = load_context.labeled_asset_scope(
+            "texture_atlas_layout".to_string(),
+            |_| -> Result<TextureAtlasLayout, AnimatedCursorLoaderError> {
+                Ok(texture_atlas_layout)
+            },
+        )?;
+        let image = load_context.labeled_asset_scope(
+            "image".to_string(),
+            |_| -> Result<Image, AnimatedCursorLoaderError> { Ok(image) },
+        )?;
 
         // Convert the hotspots to a `CursorHotspots` struct. The `overrides`
         // are constructed to include an entry for every frame. This means that
