@@ -4,6 +4,7 @@ use std::{fmt::Debug, marker::PhantomData};
 
 use bevy_app::prelude::*;
 use bevy_asset::{io::Reader, prelude::*, AssetLoader, LoadContext};
+use bevy_image::TextureAtlasLayout;
 use bevy_math::UVec2;
 use bevy_reflect::prelude::*;
 use serde::{Deserialize, Serialize};
@@ -213,8 +214,12 @@ impl<D: Deserializer> AssetLoader for SerdeAnimatedCursorLoader<D> {
             c.texture_atlas_layout.offset,
         );
 
-        let texture_atlas_layout = load_context
-            .labeled_asset_scope("texture_atlas_layout".to_string(), |_| texture_atlas_layout);
+        let texture_atlas_layout = load_context.labeled_asset_scope(
+            "texture_atlas_layout".to_string(),
+            |_| -> Result<TextureAtlasLayout, SerdeAnimatedCursorLoaderError> {
+                Ok(texture_atlas_layout)
+            },
+        )?;
 
         Ok(AnimatedCursor {
             metadata: None,

@@ -2,7 +2,7 @@ use std::time::Duration;
 
 use bevy::{
     prelude::*,
-    winit::cursor::{CursorIcon, CustomCursor},
+    window::{CursorIcon, CustomCursor},
 };
 use bevy_cursor_kit::{ani::animation::AnimationDuration, prelude::*};
 use flip::FlipPlugin;
