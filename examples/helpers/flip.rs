@@ -1,5 +1,7 @@
-use bevy::prelude::*;
-use bevy_cursor_icon::{CursorIcon, CustomCursor};
+use bevy::{
+    prelude::*,
+    window::{CursorIcon, CustomCursor},
+};
 
 pub struct FlipPlugin;
 

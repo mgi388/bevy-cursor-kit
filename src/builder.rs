@@ -1,8 +1,8 @@
 use bevy_asset::Handle;
-use bevy_cursor_icon::{CustomCursor, CustomCursorImage};
 use bevy_image::{Image, TextureAtlas};
 use bevy_math::URect;
 use bevy_reflect::prelude::*;
+use bevy_window::{CustomCursor, CustomCursorImage};
 
 use crate::{ani::asset::AnimatedCursor, cur::asset::StaticCursor};
 

@@ -15,15 +15,15 @@ serde_ron_asset = ["dep:ron", "serde_asset"]
 serde_toml_asset = ["dep:toml", "serde_asset"]
 
 [dependencies]
-bevy_app = { git = "https://github.com/ickshonpe/bevy.git", branch = "remove_feathers_winit_dep" }
-bevy_cursor_icon = { git = "https://github.com/ickshonpe/bevy.git", branch = "remove_feathers_winit_dep", features = [
+bevy_app = { git = "https://github.com/bevyengine/bevy.git", branch = "main" }
+bevy_ecs = { git = "https://github.com/bevyengine/bevy.git", branch = "main" }
+bevy_asset = { git = "https://github.com/bevyengine/bevy.git", branch = "main" }
+bevy_image = { git = "https://github.com/bevyengine/bevy.git", branch = "main" }
+bevy_math = { git = "https://github.com/bevyengine/bevy.git", branch = "main" }
+bevy_reflect = { git = "https://github.com/bevyengine/bevy.git", branch = "main" }
+bevy_window = { git = "https://github.com/bevyengine/bevy.git", branch = "main", features = [
     "custom_cursor",
 ] }
-bevy_ecs = { git = "https://github.com/ickshonpe/bevy.git", branch = "remove_feathers_winit_dep" }
-bevy_asset = { git = "https://github.com/ickshonpe/bevy.git", branch = "remove_feathers_winit_dep" }
-bevy_image = { git = "https://github.com/ickshonpe/bevy.git", branch = "remove_feathers_winit_dep" }
-bevy_math = { git = "https://github.com/ickshonpe/bevy.git", branch = "remove_feathers_winit_dep" }
-bevy_reflect = { git = "https://github.com/ickshonpe/bevy.git", branch = "remove_feathers_winit_dep" }
 bitflags = { version = "2.9", default-features = false }
 byteorder = "1.5"
 ico = "0.4"
@@ -36,7 +36,7 @@ thiserror = "2"
 toml = { version = "0.8", optional = true }
 
 [dev-dependencies]
-bevy = { git = "https://github.com/ickshonpe/bevy.git", branch = "remove_feathers_winit_dep", default-features = true, features = [
+bevy = { git = "https://github.com/bevyengine/bevy.git", branch = "main", default-features = true, features = [
     "custom_cursor",
 ] }
 ron = "0.8"

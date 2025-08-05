@@ -6,8 +6,8 @@
 //! top. You can verify this by hovering over the button and observing that the
 //! hover state changes when these points are over the button.
 use bevy::{
-    cursor_icon::{CursorIcon, CustomCursor},
     prelude::*,
+    window::{CursorIcon, CustomCursor},
 };
 use bevy_cursor_kit::prelude::*;
 use flip::FlipPlugin;
