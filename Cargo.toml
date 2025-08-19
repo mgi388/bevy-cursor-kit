@@ -33,7 +33,7 @@ ron = { version = "0.8", optional = true, default-features = false }
 serde = { version = "1", optional = true, default-features = false }
 serde_json = { version = "1", optional = true }
 thiserror = "2"
-toml = { version = "0.8", optional = true }
+toml = { version = "0.9", optional = true }
 
 [dev-dependencies]
 bevy = { version = "0.16", default-features = false, features = [
