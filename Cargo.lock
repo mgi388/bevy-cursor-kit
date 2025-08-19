@@ -5024,35 +5024,3 @@ checksum = "fc1f7e205ce79eb2da3cd71c5f55f3589785cb7c79f6a03d1c8d1491bda5d089"
 dependencies = [
  "zune-core",
 ]
-
-[[patch.unused]]
-name = "bevy"
-version = "0.15.3"
-
-[[patch.unused]]
-name = "bevy_app"
-version = "0.15.3"
-
-[[patch.unused]]
-name = "bevy_asset"
-version = "0.15.3"
-
-[[patch.unused]]
-name = "bevy_image"
-version = "0.15.3"
-
-[[patch.unused]]
-name = "bevy_math"
-version = "0.15.3"
-
-[[patch.unused]]
-name = "bevy_reflect"
-version = "0.15.3"
-
-[[patch.unused]]
-name = "bevy_sprite"
-version = "0.15.3"
-
-[[patch.unused]]
-name = "bevy_window"
-version = "0.15.3"
