@@ -356,7 +356,7 @@ dependencies = [
  "ctrlc",
  "downcast-rs",
  "log",
- "thiserror 2.0.12",
+ "thiserror 2.0.15",
  "variadics_please",
  "wasm-bindgen",
  "web-sys",
@@ -394,7 +394,7 @@ dependencies = [
  "ron",
  "serde",
  "stackfuture",
- "thiserror 2.0.12",
+ "thiserror 2.0.15",
  "tracing",
  "uuid",
  "wasm-bindgen",
@@ -426,7 +426,7 @@ dependencies = [
  "derive_more",
  "encase",
  "serde",
- "thiserror 2.0.12",
+ "thiserror 2.0.15",
  "wgpu-types",
 ]
 
@@ -456,7 +456,7 @@ dependencies = [
  "radsort",
  "serde",
  "smallvec",
- "thiserror 2.0.12",
+ "thiserror 2.0.15",
  "tracing",
 ]
 
@@ -481,7 +481,7 @@ dependencies = [
  "ron",
  "serde",
  "serde_json",
- "thiserror 2.0.12",
+ "thiserror 2.0.15",
  "toml",
 ]
 
@@ -537,7 +537,7 @@ dependencies = [
  "nonmax",
  "serde",
  "smallvec",
- "thiserror 2.0.12",
+ "thiserror 2.0.15",
  "variadics_please",
 ]
 
@@ -621,7 +621,7 @@ dependencies = [
  "image",
  "rectangle-pack",
  "serde",
- "thiserror 2.0.12",
+ "thiserror 2.0.15",
  "tracing",
  "wgpu-types",
 ]
@@ -641,7 +641,7 @@ dependencies = [
  "derive_more",
  "log",
  "smol_str",
- "thiserror 2.0.12",
+ "thiserror 2.0.15",
 ]
 
 [[package]]
@@ -657,7 +657,7 @@ dependencies = [
  "bevy_reflect",
  "bevy_window",
  "log",
- "thiserror 2.0.12",
+ "thiserror 2.0.15",
 ]
 
 [[package]]
@@ -744,7 +744,7 @@ dependencies = [
  "rand_distr",
  "serde",
  "smallvec",
- "thiserror 2.0.12",
+ "thiserror 2.0.15",
  "variadics_please",
 ]
 
@@ -768,7 +768,7 @@ dependencies = [
  "bytemuck",
  "hexasphere",
  "serde",
- "thiserror 2.0.12",
+ "thiserror 2.0.15",
  "tracing",
  "wgpu-types",
 ]
@@ -812,7 +812,7 @@ dependencies = [
  "radsort",
  "smallvec",
  "static_assertions",
- "thiserror 2.0.12",
+ "thiserror 2.0.15",
  "tracing",
 ]
 
@@ -860,7 +860,7 @@ dependencies = [
  "serde",
  "smallvec",
  "smol_str",
- "thiserror 2.0.12",
+ "thiserror 2.0.15",
  "uuid",
  "variadics_please",
  "wgpu-types",
@@ -922,7 +922,7 @@ dependencies = [
  "send_wrapper",
  "serde",
  "smallvec",
- "thiserror 2.0.12",
+ "thiserror 2.0.15",
  "tracing",
  "variadics_please",
  "wasm-bindgen",
@@ -959,7 +959,7 @@ dependencies = [
  "bevy_utils",
  "derive_more",
  "serde",
- "thiserror 2.0.12",
+ "thiserror 2.0.15",
  "uuid",
 ]
 
@@ -1075,7 +1075,7 @@ dependencies = [
  "serde",
  "smallvec",
  "sys-locale",
- "thiserror 2.0.12",
+ "thiserror 2.0.15",
  "tracing",
  "unicode-bidi",
 ]
@@ -1110,7 +1110,7 @@ dependencies = [
  "bevy_utils",
  "derive_more",
  "serde",
- "thiserror 2.0.12",
+ "thiserror 2.0.15",
 ]
 
 [[package]]
@@ -1143,7 +1143,7 @@ dependencies = [
  "nonmax",
  "smallvec",
  "taffy",
- "thiserror 2.0.12",
+ "thiserror 2.0.15",
  "tracing",
 ]
 
@@ -2585,7 +2585,7 @@ dependencies = [
  "spirv",
  "strum",
  "termcolor",
- "thiserror 2.0.12",
+ "thiserror 2.0.15",
  "unicode-xid",
 ]
 
@@ -3846,11 +3846,11 @@ dependencies = [
 
 [[package]]
 name = "thiserror"
-version = "2.0.12"
+version = "2.0.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "567b8a2dae586314f7be2a752ec7474332959c6460e02bde30d702a66d488708"
+checksum = "80d76d3f064b981389ecb4b6b7f45a0bf9fdac1d5b9204c7bd6714fecc302850"
 dependencies = [
- "thiserror-impl 2.0.12",
+ "thiserror-impl 2.0.15",
 ]
 
 [[package]]
@@ -3866,9 +3866,9 @@ dependencies = [
 
 [[package]]
 name = "thiserror-impl"
-version = "2.0.12"
+version = "2.0.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7f7cf42b4507d8ea322120659672cf1b9dbb93f8f2d4ecfd6e51350ff5b17a1d"
+checksum = "44d29feb33e986b6ea906bd9c3559a856983f92371b3eaa5e83782a351623de0"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -4337,7 +4337,7 @@ dependencies = [
  "raw-window-handle",
  "rustc-hash",
  "smallvec",
- "thiserror 2.0.12",
+ "thiserror 2.0.15",
  "wgpu-hal",
  "wgpu-types",
 ]
@@ -4380,7 +4380,7 @@ dependencies = [
  "renderdoc-sys",
  "rustc-hash",
  "smallvec",
- "thiserror 2.0.12",
+ "thiserror 2.0.15",
  "wasm-bindgen",
  "web-sys",
  "wgpu-types",
@@ -4939,35 +4939,3 @@ checksum = "99a5bab8d7dedf81405c4bb1f2b83ea057643d9cb28778cea9eecddeedd2e028"
 dependencies = [
  "zune-core",
 ]
-
-[[patch.unused]]
-name = "bevy"
-version = "0.17.0-dev"
-
-[[patch.unused]]
-name = "bevy_app"
-version = "0.17.0-dev"
-
-[[patch.unused]]
-name = "bevy_asset"
-version = "0.17.0-dev"
-
-[[patch.unused]]
-name = "bevy_image"
-version = "0.17.0-dev"
-
-[[patch.unused]]
-name = "bevy_math"
-version = "0.17.0-dev"
-
-[[patch.unused]]
-name = "bevy_reflect"
-version = "0.17.0-dev"
-
-[[patch.unused]]
-name = "bevy_sprite"
-version = "0.17.0-dev"
-
-[[patch.unused]]
-name = "bevy_window"
-version = "0.17.0-dev"
