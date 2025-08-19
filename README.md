@@ -120,7 +120,7 @@ Check out the [examples](examples) for more details.
 
 | bevy | bevy_cursor_kit |
 | ---- | --------------- |
-| 0.16 | 0.4             |
+| 0.16 | 0.4 - 0.5       |
 | 0.15 | 0.3             |
 
 ## License
