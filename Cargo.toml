@@ -21,7 +21,7 @@ bevy_ecs = "0.16"
 bevy_asset = "0.16"
 bevy_image = "0.16"
 bevy_math = "0.16"
-bevy_reflect = "0.16"
+bevy_reflect = "0.17"
 bevy_spritesheet_animation = { version = "3", optional = true, default-features = false }
 bevy_winit = { version = "0.16", features = ["custom_cursor"] }
 bitflags = { version = "2.9", default-features = false }
