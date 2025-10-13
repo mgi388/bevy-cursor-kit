@@ -2,7 +2,7 @@ use std::time::Duration;
 
 use bevy::{
     prelude::*,
-    winit::cursor::{CursorIcon, CustomCursor},
+    window::{CursorIcon, CustomCursor},
 };
 use bevy_cursor_kit::{ani::animation::AnimationDuration, prelude::*};
 use flip::FlipPlugin;
@@ -101,7 +101,7 @@ fn animate_cursor(
 
         config.frame_timer.tick(time.delta());
 
-        if !config.frame_timer.finished() {
+        if !config.frame_timer.is_finished() {
             continue;
         }
 

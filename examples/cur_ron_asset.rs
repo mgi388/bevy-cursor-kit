@@ -7,7 +7,7 @@
 //! hover state changes when these points are over the button.
 use bevy::{
     prelude::*,
-    winit::cursor::{CursorIcon, CustomCursor},
+    window::{CursorIcon, CustomCursor},
 };
 use bevy_cursor_kit::prelude::*;
 use flip::FlipPlugin;

@@ -16,38 +16,30 @@ serde_ron_asset = ["dep:ron", "serde_asset"]
 serde_toml_asset = ["dep:toml", "serde_asset"]
 
 [dependencies]
-bevy_app = "0.16"
-bevy_ecs = "0.16"
-bevy_asset = "0.16"
-bevy_image = "0.16"
-bevy_math = "0.16"
-bevy_reflect = "0.16"
-bevy_spritesheet_animation = { version = "3", optional = true, default-features = false }
-bevy_winit = { version = "0.16", features = ["custom_cursor"] }
+bevy_app = "0.17"
+bevy_ecs = "0.17"
+bevy_asset = "0.17"
+bevy_image = "0.17"
+bevy_math = "0.17"
+bevy_reflect = "0.17"
+bevy_spritesheet_animation = { version = "4", optional = true, default-features = false }
+bevy_window = { version = "0.17", features = ["custom_cursor"] }
 bitflags = { version = "2.9", default-features = false }
 byteorder = "1.5"
 ico = "0.4"
 image = "0.25"
 riff = "2"
-ron = { version = "0.8", optional = true, default-features = false }
+ron = { version = "0.10", optional = true, default-features = false }
 serde = { version = "1", optional = true, default-features = false }
 serde_json = { version = "1", optional = true }
 thiserror = "2"
 toml = { version = "0.9", optional = true }
 
 [dev-dependencies]
-bevy = { version = "0.16", default-features = false, features = [
-    "bevy_log",
-    "bevy_ui",
-    "bevy_window",
-    "bevy_winit",
+bevy = { version = "0.17", default-features = true, features = [
     "custom_cursor",
-    "default_font",
-    "multi_threaded",
-    "png",
-    "x11",
 ] }
-ron = "0.8"
+ron = "0.10"
 
 [lints.clippy]
 type_complexity = "allow"
