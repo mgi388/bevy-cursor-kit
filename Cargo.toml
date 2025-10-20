@@ -24,7 +24,7 @@ bevy_math = "0.17"
 bevy_reflect = "0.17"
 bevy_spritesheet_animation = { version = "4", optional = true, default-features = false }
 bevy_window = { version = "0.17", features = ["custom_cursor"] }
-bitflags = { version = "2.9", default-features = false }
+bitflags = { version = "2.10", default-features = false }
 byteorder = "1.5"
 ico = "0.4"
 image = "0.25"
