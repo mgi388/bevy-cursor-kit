@@ -21,7 +21,7 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
       - name: Set up Dark Omen game files cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: cache
         with:
           path: DARKOMEN
