@@ -32,10 +32,10 @@ fn setup_ui(mut commands: Commands) {
                         border: UiRect::all(Val::Px(5.0)),
                         justify_content: JustifyContent::Center, // horizontally center child text
                         align_items: AlignItems::Center,         // vertically center child text
+                        border_radius: BorderRadius::MAX,
                         ..default()
                     },
                     BorderColor::all(Color::BLACK),
-                    BorderRadius::MAX,
                     BackgroundColor(NORMAL_BUTTON),
                 ))
                 .with_child((
