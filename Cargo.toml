@@ -29,7 +29,7 @@ byteorder = "1.5"
 ico = "0.5"
 image = "0.25"
 riff = "2"
-ron = { version = "0.10", optional = true, default-features = false }
+ron = { version = "0.12", optional = true, default-features = false }
 serde = { version = "1", optional = true, default-features = false }
 serde_json = { version = "1", optional = true }
 thiserror = "2"
@@ -39,7 +39,7 @@ toml = { version = "0.9", optional = true }
 bevy = { version = "0.17", default-features = true, features = [
     "custom_cursor",
 ] }
-ron = "0.10"
+ron = "0.12"
 
 [lints.clippy]
 type_complexity = "allow"
