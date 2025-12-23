@@ -24,7 +24,7 @@ pub struct SerdeAnimatedCursorAssetPlugin<D: Deserializer> {
     extensions: Vec<&'static str>,
 }
 
-impl<D: Deserializer> SerdeAnimatedCursorAssetPlugin<D> {
+impl<D: Deserializer + TypePath> SerdeAnimatedCursorAssetPlugin<D> {
     /// Creates a new [`SerdeAnimatedCursorAssetPlugin`].
     pub fn new(extensions: Vec<&'static str>) -> Self {
         Self {
@@ -34,7 +34,7 @@ impl<D: Deserializer> SerdeAnimatedCursorAssetPlugin<D> {
     }
 }
 
-impl<D: Deserializer> Plugin for SerdeAnimatedCursorAssetPlugin<D> {
+impl<D: Deserializer + TypePath> Plugin for SerdeAnimatedCursorAssetPlugin<D> {
     fn build(&self, app: &mut App) {
         app.register_asset_loader(SerdeAnimatedCursorLoader::<D>::new(
             D::default(),
@@ -118,7 +118,7 @@ pub trait Deserializer: Debug + Default + Send + Sync + 'static {
 
 /// Implements deserialization for JSON format.
 #[cfg(feature = "serde_json_asset")]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, TypePath)]
 pub struct JsonDeserializer;
 
 #[cfg(feature = "serde_json_asset")]
@@ -130,7 +130,7 @@ impl Deserializer for JsonDeserializer {
 
 /// Implements deserialization for RON format.
 #[cfg(feature = "serde_ron_asset")]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, TypePath)]
 pub struct RonDeserializer;
 
 #[cfg(feature = "serde_ron_asset")]
@@ -142,7 +142,7 @@ impl Deserializer for RonDeserializer {
 
 /// Implements deserialization for TOML format.
 #[cfg(feature = "serde_toml_asset")]
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, TypePath)]
 pub struct TomlDeserializer;
 
 #[cfg(feature = "serde_toml_asset")]
@@ -153,7 +153,8 @@ impl Deserializer for TomlDeserializer {
 }
 
 /// A loader for animated cursor assets using Serde.
-pub struct SerdeAnimatedCursorLoader<D: Deserializer> {
+#[derive(TypePath)]
+pub struct SerdeAnimatedCursorLoader<D: Deserializer + TypePath> {
     _phantom: PhantomData<D>,
     extensions: Vec<&'static str>,
     deserializer: D,
@@ -174,7 +175,7 @@ pub enum SerdeAnimatedCursorLoaderError {
     LoadImageError(#[from] LoadImageError),
 }
 
-impl<D: Deserializer> AssetLoader for SerdeAnimatedCursorLoader<D> {
+impl<D: Deserializer + TypePath> AssetLoader for SerdeAnimatedCursorLoader<D> {
     type Asset = AnimatedCursor;
     type Settings = ();
     type Error = SerdeAnimatedCursorLoaderError;
@@ -235,7 +236,7 @@ impl<D: Deserializer> AssetLoader for SerdeAnimatedCursorLoader<D> {
     }
 }
 
-impl<D: Deserializer> SerdeAnimatedCursorLoader<D> {
+impl<D: Deserializer + TypePath> SerdeAnimatedCursorLoader<D> {
     pub fn new(deserializer: D, extensions: Vec<&'static str>) -> Self {
         Self {
             _phantom: PhantomData,
