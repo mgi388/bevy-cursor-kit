@@ -36,8 +36,9 @@ thiserror = "2"
 toml = { version = "0.9", optional = true }
 
 [dev-dependencies]
-bevy = { version = "0.18", default-features = true, features = [
+bevy = { version = "0.18", default-features = false, features = [
     "custom_cursor",
+    "ui",
 ] }
 ron = "0.12"
 
