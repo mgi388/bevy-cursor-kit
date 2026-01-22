@@ -11,6 +11,15 @@ jobs:
     name: Test suite
     runs-on: ubuntu-latest
     steps:
+      # `ld` terminates with a cryptic error probably due to lack of space:
+      # `collect2: fatal error: ld terminated with signal 7 [Bus error], core
+      # dumped compilation terminated.`
+      - name: Free disk space
+        uses: endersonmenezes/free-disk-space@v3
+        with:
+          remove_android: true
+          rm_cmd: "rmz"
+
       - name: Checkout repository
         uses: actions/checkout@v6
       - name: Install Linux deps
