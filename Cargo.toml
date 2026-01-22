@@ -22,7 +22,7 @@ bevy_asset = "0.18"
 bevy_image = "0.18"
 bevy_math = "0.18"
 bevy_reflect = "0.18"
-bevy_spritesheet_animation = { version = "5", optional = true, default-features = false }
+bevy_spritesheet_animation = { version = "6", optional = true, default-features = false }
 bevy_window = { version = "0.18", features = ["custom_cursor"] }
 bitflags = { version = "2.10", default-features = false }
 byteorder = "1.5"
