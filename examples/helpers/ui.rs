@@ -41,7 +41,7 @@ fn setup_ui(mut commands: Commands) {
                 .with_child((
                     Text::new("Button"),
                     TextFont {
-                        font_size: 33.0,
+                        font_size: FontSize::Px(33.0),
                         ..default()
                     },
                     TextColor(Color::srgb(0.9, 0.9, 0.9)),

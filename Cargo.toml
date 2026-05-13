@@ -13,18 +13,18 @@ serde = ["dep:serde", "bitflags/serde", "ico/serde"]
 serde_asset = ["serde"]
 serde_json_asset = ["dep:serde_json", "serde_asset"]
 serde_ron_asset = ["dep:ron", "serde_asset"]
-serde_toml_asset = ["dep:toml", "serde_asset"]
+serde_toml_asset = ["dep:serde_toml", "serde_asset"]
 
 [dependencies]
-bevy_app = "0.18"
-bevy_ecs = "0.18"
-bevy_asset = "0.18"
-bevy_image = "0.18"
-bevy_math = "0.18"
-bevy_reflect = "0.18"
-bevy_spritesheet_animation = { version = "6", optional = true, default-features = false }
-bevy_window = { version = "0.18", features = ["custom_cursor"] }
-bitflags = { version = "2.10", default-features = false }
+bevy_app = "0.19"
+bevy_ecs = "0.19"
+bevy_asset = "0.19"
+bevy_image = "0.19"
+bevy_math = "0.19"
+bevy_reflect = "0.19"
+bevy_spritesheet_animation = { version = "7", optional = true, default-features = false }
+bevy_window = { version = "0.19", features = ["custom_cursor"] }
+bitflags = { version = "2.13", default-features = false }
 byteorder = "1.5"
 ico = "0.5"
 image = "0.25"
@@ -32,11 +32,11 @@ riff = "2"
 ron = { version = "0.12", optional = true, default-features = false }
 serde = { version = "1", optional = true, default-features = false }
 serde_json = { version = "1", optional = true }
+serde_toml = { version = "1.1.2", package = "toml", optional = true }
 thiserror = "2"
-toml = { version = "0.9", optional = true }
 
 [dev-dependencies]
-bevy = { version = "0.18", default-features = false, features = [
+bevy = { version = "0.19", default-features = false, features = [
     "custom_cursor",
     "ui",
 ] }
