@@ -32,9 +32,8 @@ pub(crate) async fn load_image(
     let path: PathBuf = path.into();
 
     let loaded = load_context
-        .loader()
-        .immediate()
-        .load::<Image>(path.clone())
+        .load_builder()
+        .load_value::<Image>(path.clone())
         .await
         .map_err(|_| LoadImageError::Error {
             dependency: path.clone().into(),

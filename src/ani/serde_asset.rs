@@ -105,10 +105,10 @@ pub enum DeserializeError {
     #[cfg(feature = "serde_toml_asset")]
     #[error("Could not interpret as UTF-8: {0}")]
     FormatError(#[from] std::str::Utf8Error),
-    /// A [toml::de::Error] error.
+    /// A [serde_toml::de::Error] error.
     #[cfg(feature = "serde_toml_asset")]
     #[error("Could not parse TOML: {0}")]
-    Toml(#[from] toml::de::Error),
+    Toml(#[from] serde_toml::de::Error),
 }
 
 /// A trait for deserializing bytes into a [`SerdeAnimatedCursor`].
@@ -148,7 +148,9 @@ pub struct TomlDeserializer;
 #[cfg(feature = "serde_toml_asset")]
 impl Deserializer for TomlDeserializer {
     fn deserialize(&self, bytes: &[u8]) -> Result<SerdeAnimatedCursor, DeserializeError> {
-        Ok(toml::from_str::<SerdeAnimatedCursor>(from_utf8(bytes)?)?)
+        Ok(serde_toml::from_str::<SerdeAnimatedCursor>(from_utf8(
+            bytes,
+        )?)?)
     }
 }
 
