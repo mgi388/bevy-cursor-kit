@@ -15,7 +15,7 @@ jobs:
       # `collect2: fatal error: ld terminated with signal 7 [Bus error], core
       # dumped compilation terminated.`
       - name: Free disk space
-        uses: endersonmenezes/free-disk-space@v3
+        uses: endersonmenezes/free-disk-space@v4
         with:
           remove_android: true
           rm_cmd: "rmz"
