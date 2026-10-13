@@ -19,7 +19,7 @@ bevy_app = "0.19"
 bevy_ecs = "0.19"
 bevy_asset = "0.19"
 bevy_image = "0.19"
-bevy_math = "0.19"
+bevy_math = "0.20"
 bevy_reflect = "0.19"
 bevy_window = { version = "0.19", features = ["custom_cursor"] }
 bitflags = { version = "2.13", default-features = false }
