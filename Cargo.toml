@@ -8,7 +8,6 @@ license = "MIT OR Apache-2.0"
 
 [features]
 default = []
-bevy_spritesheet_animation = ["dep:bevy_spritesheet_animation"]
 serde = ["dep:serde", "bitflags/serde", "ico/serde"]
 serde_asset = ["serde"]
 serde_json_asset = ["dep:serde_json", "serde_asset"]
@@ -22,7 +21,6 @@ bevy_asset = "0.19"
 bevy_image = "0.19"
 bevy_math = "0.19"
 bevy_reflect = "0.19"
-bevy_spritesheet_animation = { version = "7", optional = true, default-features = false }
 bevy_window = { version = "0.19", features = ["custom_cursor"] }
 bitflags = { version = "2.13", default-features = false }
 byteorder = "1.5"

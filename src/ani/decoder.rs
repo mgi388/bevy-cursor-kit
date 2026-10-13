@@ -65,10 +65,7 @@ where
 {
     let mut vec: Vec<Chunk> = Vec::new();
     for item in iter {
-        match item {
-            Ok(chunk) => vec.push(chunk),
-            Err(e) => return Err(e),
-        }
+        vec.push(item?);
     }
     Ok(vec)
 }
