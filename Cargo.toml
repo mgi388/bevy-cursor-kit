@@ -16,7 +16,7 @@ serde_toml_asset = ["dep:serde_toml", "serde_asset"]
 
 [dependencies]
 bevy_app = "0.19"
-bevy_ecs = "0.19"
+bevy_ecs = "0.20"
 bevy_asset = "0.19"
 bevy_image = "0.19"
 bevy_math = "0.19"
