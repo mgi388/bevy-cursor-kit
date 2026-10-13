@@ -56,8 +56,6 @@ const NORMAL_BUTTON: Color = Color::srgb(0.15, 0.15, 0.15);
 const HOVERED_BUTTON: Color = Color::srgb(0.25, 0.25, 0.25);
 const PRESSED_BUTTON: Color = Color::srgb(0.35, 0.75, 0.35);
 
-// `Pressed` is removed when the button is released, which `Changed` can't
-// detect, so the button is restyled every frame.
 fn update_button(
     mut button_query: Query<
         (
