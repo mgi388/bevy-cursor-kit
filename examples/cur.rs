@@ -27,7 +27,7 @@ struct Cursors {
 
 fn setup_cursor(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.insert_resource(Cursors {
-        cursor: asset_server.load("Master Sword.CUR"),
+        cursor: asset_server.load("Master Sword.cur"),
     });
 }
 
