@@ -684,7 +684,6 @@ dependencies = [
  "bevy_image",
  "bevy_math",
  "bevy_reflect",
- "bevy_spritesheet_animation",
  "bevy_window",
  "bitflags 2.13.0",
  "byteorder",
@@ -1532,15 +1531,6 @@ dependencies = [
  "fixedbitset",
  "nonmax",
  "tracing",
-]
-
-[[package]]
-name = "bevy_spritesheet_animation"
-version = "7.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b7fe0a14facf87e1e1cc896d357ea284489459bd75468e12225d1025fba28ff6"
-dependencies = [
- "bevy",
 ]
 
 [[package]]
