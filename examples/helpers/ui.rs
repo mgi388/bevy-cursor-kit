@@ -1,4 +1,6 @@
-use bevy::{color::palettes::css::*, prelude::*};
+use bevy::{
+    color::palettes::css::*, picking::hover::Hovered, prelude::*, ui::Pressed, ui_widgets::Button,
+};
 
 pub struct UiPlugin;
 
@@ -26,6 +28,7 @@ fn setup_ui(mut commands: Commands) {
             parent
                 .spawn((
                     Button,
+                    Hovered::default(),
                     Node {
                         width: Val::Px(150.0),
                         height: Val::Px(65.0),
@@ -53,32 +56,35 @@ const NORMAL_BUTTON: Color = Color::srgb(0.15, 0.15, 0.15);
 const HOVERED_BUTTON: Color = Color::srgb(0.25, 0.25, 0.25);
 const PRESSED_BUTTON: Color = Color::srgb(0.35, 0.75, 0.35);
 
+// `Pressed` is removed when the button is released, which `Changed` can't
+// detect, so the button is restyled every frame.
 fn update_button(
-    mut interaction_query: Query<
+    mut button_query: Query<
         (
-            &Interaction,
+            &Hovered,
+            Has<Pressed>,
             &mut BackgroundColor,
             &mut BorderColor,
             &Children,
         ),
-        (Changed<Interaction>, With<Button>),
+        With<Button>,
     >,
     mut text_query: Query<&mut Text>,
 ) {
-    for (interaction, mut color, mut border_color, children) in &mut interaction_query {
+    for (hovered, pressed, mut color, mut border_color, children) in &mut button_query {
         let mut text = text_query.get_mut(children[0]).unwrap();
-        match *interaction {
-            Interaction::Pressed => {
+        match (hovered.get(), pressed) {
+            (_, true) => {
                 **text = "Press".to_string();
                 *color = PRESSED_BUTTON.into();
                 *border_color = BorderColor::all(RED);
             }
-            Interaction::Hovered => {
+            (true, false) => {
                 **text = "Hover".to_string();
                 *color = HOVERED_BUTTON.into();
                 *border_color = BorderColor::all(Color::WHITE);
             }
-            Interaction::None => {
+            (false, false) => {
                 **text = "Button".to_string();
                 *color = NORMAL_BUTTON.into();
                 *border_color = BorderColor::all(Color::BLACK);
