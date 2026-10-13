@@ -3,6 +3,7 @@ use bevy_app::prelude::*;
 use crate::{ani::asset::AnimatedCursorAssetPlugin, cur::asset::StaticCursorAssetPlugin};
 
 pub mod ani;
+#[cfg(feature = "serde_asset")]
 mod asset_image;
 mod builder;
 pub mod cur;
